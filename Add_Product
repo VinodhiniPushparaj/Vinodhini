@@ -1,0 +1,222 @@
+package com.ADM.data;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JRadioButton;
+import javax.swing.JCheckBox;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Add_Product extends JFrame {
+	public static Add_Product frame;
+	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JRadioButton rdbtnActive;
+	private JRadioButton rdbtnInactive;
+	private JTextField textField_4;
+	String productname ;
+	String status = "";
+	String productid;
+	float unitprice ;
+	int quantity;
+	int gst;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frame = new Add_Product();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Add_Product() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 730, 642);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JLabel lblAddProduct = new JLabel("Add Product");
+		lblAddProduct.setFont(new Font("Constantia", Font.BOLD, 20));
+		lblAddProduct.setBounds(291, 23, 251, 48);
+		contentPane.add(lblAddProduct);
+
+		JLabel lblProductId = new JLabel("Product I .D");
+		lblProductId.setFont(new Font("Constantia", Font.PLAIN, 17));
+		lblProductId.setBounds(69, 96, 151, 31);
+		contentPane.add(lblProductId);
+
+		textField = new JTextField();
+		textField.setBounds(292, 101, 185, 26);
+		contentPane.add(textField);
+		textField.setColumns(10);
+
+		JLabel lblNewLabel = new JLabel("Product Name");
+		lblNewLabel.setFont(new Font("Constantia", Font.PLAIN, 17));
+		lblNewLabel.setBounds(69, 164, 151, 26);
+		contentPane.add(lblNewLabel);
+
+		JLabel lblNewLabel_1 = new JLabel("Status");
+		lblNewLabel_1.setFont(new Font("Constantia", Font.PLAIN, 17));
+		lblNewLabel_1.setBounds(70, 231, 150, 31);
+		contentPane.add(lblNewLabel_1);
+
+		rdbtnActive = new JRadioButton("Active");
+		rdbtnActive.setFont(new Font("Constantia", Font.PLAIN, 14));
+		rdbtnActive.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+		if (rdbtnActive.isSelected()) {
+			rdbtnInactive.setSelected(false);
+		}
+			}});
+		rdbtnActive.setBounds(136, 269, 66, 23);
+		contentPane.add(rdbtnActive);
+
+		rdbtnInactive = new JRadioButton("Inactive");
+		rdbtnInactive.setFont(new Font("Constantia", Font.PLAIN, 14));
+		rdbtnInactive.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+		if (rdbtnInactive.isSelected()) {
+			rdbtnActive.setSelected(false);
+		}
+			}});
+		rdbtnInactive.setBounds(246, 269, 86, 23);
+		contentPane.add(rdbtnInactive);
+
+		JLabel lblUnitPrice = new JLabel("Unit Price");
+		lblUnitPrice.setFont(new Font("Constantia", Font.PLAIN, 17));
+		lblUnitPrice.setBounds(69, 332, 133, 31);
+		contentPane.add(lblUnitPrice);
+
+		textField_1 = new JTextField();
+		textField_1.setBounds(291, 337, 185, 26);
+		contentPane.add(textField_1);
+		textField_1.setColumns(10);
+
+		textField_2 = new JTextField();
+		textField_2.setBounds(291, 167, 185, 26);
+		contentPane.add(textField_2);
+		textField_2.setColumns(10);
+
+		JLabel lblQuantityInStock = new JLabel("Quantity in Stock");
+		lblQuantityInStock.setFont(new Font("Constantia", Font.PLAIN, 17));
+		lblQuantityInStock.setBounds(69, 400, 151, 26);
+		contentPane.add(lblQuantityInStock);
+
+		textField_3 = new JTextField();
+		textField_3.setBounds(291, 406, 185, 26);
+		contentPane.add(textField_3);
+		textField_3.setColumns(10);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(291, 462, 86, 26);
+		contentPane.add(textField_4);
+		textField_4.setColumns(10);
+
+		Button button = new Button("Save");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				 productid = textField.getText();
+				 productname = textField_2.getText();
+				
+				 
+				 if(productid.isEmpty()) {
+					 textField.setBorder(new  LineBorder(Color.RED, 1)); 
+				 }
+				 if(productname.isEmpty()) {
+					 textField_2.setBorder(new  LineBorder(Color.RED, 1));  
+				 }
+				 if(status.equals("")) {
+					 
+				 }
+				 if(textField_1.getText().isEmpty()) {
+					 textField_1.setBorder(new  LineBorder(Color.RED, 1)); 
+				 }
+				 if(textField_3.getText().isEmpty()) {
+					 textField_3.setBorder(new  LineBorder(Color.RED, 1)); 
+				 }
+				 if(textField_4.getText().isEmpty()) {
+					 textField_4.setBorder(new  LineBorder(Color.RED, 1)); 
+				 }
+				 else {
+				boolean validate;
+				try {
+					validate = AdminDB.productvalidate(productid);
+					if (validate == true) {
+						textField.setBorder(new LineBorder(Color.RED, 1));
+						JOptionPane.showMessageDialog(null, "Product ID is already there");
+					} else {
+						 productname = textField_2.getText();
+						
+						if (rdbtnActive.isSelected()) {
+							status = "Active";
+						} else {
+							status = "InActive";
+						}
+						 unitprice = Float.valueOf(textField_1.getText());
+						 quantity = Integer.valueOf(textField_3.getText());
+						 gst=Integer.valueOf(textField_4.getText());
+						int value;
+						try {
+							value = AdminDB.AddProduct(productid, productname, status, unitprice, quantity,gst);
+							if (value > 0) {
+								JOptionPane.showMessageDialog(null, "New product has been added");
+								frame.dispose();
+								AdminHomePage.main(new String[] {});
+							} else {
+								JOptionPane.showMessageDialog(null, "Error while adding product");
+							}
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				 }
+			}
+
+		});
+		button.setBounds(320, 529, 86, 31);
+		contentPane.add(button);
+		
+		JLabel lblNewLabel_2 = new JLabel("GST %");
+		lblNewLabel_2.setFont(new Font("Constantia", Font.PLAIN, 17));
+		lblNewLabel_2.setBounds(156, 462, 64, 23);
+		contentPane.add(lblNewLabel_2);
+		
+		
+	}
+}
