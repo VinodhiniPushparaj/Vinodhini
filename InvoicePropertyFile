@@ -1,0 +1,110 @@
+package com.ADM.data;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Properties;
+
+public class Invoiceprop {
+	
+	String salenumber="";
+	String salesname="";
+	String product="";
+	String unitp="";
+	String quantity="";
+	String dis="";
+
+
+	String snoarray[]=null;
+	String salesnames[]=null;
+	String products[]=null;
+	String unitprices[]=null;
+	String qun[]=null;
+	String discont[]=null;
+	
+	
+	
+	String snoin[]=null;
+	String inno[]=null;
+	String cusnamea[]=null;
+	String cusma[]=null;
+	String cumobila[]=null;
+	String add1[]=null;
+	String add2[]=null;
+	
+	public void invoiceonevalue(int salesno ) throws Exception 
+	{
+
+		Properties prop = new Properties();
+	
+	
+		
+			FileInputStream fis = new FileInputStream(
+					"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Sales.properties");
+			prop.load(fis);
+			
+			String sno = prop.getProperty("salesorderno");
+			String sdate = prop.getProperty("salesdate");
+			String qno = prop.getProperty("quoteno");
+			String scname = prop.getProperty("customername");
+			String smail = prop.getProperty("email");
+			String smobilen = prop.getProperty("mobile");
+			String productname = prop.getProperty("productname");
+			String qunitp = prop.getProperty("unitp");
+			String qgst = prop.getProperty("gst");
+			String qquantity = prop.getProperty("quantity");
+			String sdiscount = prop.getProperty("discount");
+			String subtotalsales = prop.getProperty("subtotal");
+			String sgsttotal = prop.getProperty("gsttotal");
+			String stotal = prop.getProperty("total");
+			
+			snoarray=sno.split(",");
+			salesnames=sdate.split(",");
+			products=productname.split(",");
+			unitprices=qunitp.split(",");
+			qun=qquantity.split(",");
+			discont=sdiscount.split(",");
+			
+			for(int i=0;i<snoarray.length;i++) 
+			{
+				if(snoarray[i].equals(String.valueOf(salesno)))
+				{
+					salenumber=snoarray[i];
+					salesname=salesnames[i];
+					product=products[i];
+					unitp=unitprices[i];
+					quantity=qun[i];
+					dis=discont[i];
+					break;
+				}
+				
+			}
+			
+	}
+	
+	public void invoicevalue() throws Exception {
+		Properties prop = new Properties();
+	
+			FileInputStream fis = new FileInputStream(
+					"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Invoice.properties");
+			prop.load(fis);
+			String sno = prop.getProperty("saleno");
+			String indate = prop.getProperty("invoiceno");
+			String cusname = prop.getProperty("customername");
+			String cusmail = prop.getProperty("email");
+			String cusmob = prop.getProperty("mobile");
+			String cusadd1 = prop.getProperty("address1");
+			String cusadd2 = prop.getProperty("address2");
+			
+			
+			snoin=sno.split(",");
+			inno=indate.split(",");
+			cusnamea=cusname.split(",");
+			cusma=cusmail.split(",");
+			cumobila=cusmob.split(",");
+			add2=cusadd2.split(",");
+			add1=cusadd1.split(",");
+			
+	}
+	
+
+}
