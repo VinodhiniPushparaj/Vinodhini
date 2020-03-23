@@ -1,0 +1,299 @@
+package com.ADM.data;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Properties;
+
+public class AdminDB {
+	static Properties prop;
+	static String name[]=null;
+	static int quantityavailable;
+	
+	public static  int campaignowner(String user) 
+	{
+		int status=0;
+		Properties prop=new Properties();
+		try {
+			FileInputStream fis=new FileInputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\CampaignOwner.properties");
+			prop.load(fis);
+			if(prop.isEmpty()) 
+			{
+				FileOutputStream fos=new FileOutputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\CampaignOwner.properties");
+				prop.setProperty("campaign_owner_name",user);
+				
+			prop.store(fos, "Campaignowner  has been added");	
+			status=1;
+			}
+			
+			else {
+				    String usernames=prop.getProperty("campaign_owner_name" );
+				    name=usernames.split(",");
+				    String newname=usernames+","+user; 
+				    FileOutputStream fos=new FileOutputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\CampaignOwner.properties");
+					prop.setProperty("campaign_owner_name",newname);	
+				    prop.store(fos, "Campaignowner  has been added");	
+				    status=1;       
+			}
+			 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return status;
+	}
+	
+
+	public static  int leadowner(String user) 
+	{
+		int status=0;
+		Properties prop=new Properties();
+		try {
+			FileInputStream fis=new FileInputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\leadOwner.properties");
+			prop.load(fis);
+			if(prop.isEmpty()) 
+			{
+				FileOutputStream fos=new FileOutputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\leadOwner.properties");
+				prop.setProperty("lead_owner_name",user);
+				
+			prop.store(fos, "lead has been added");	
+			status=1;
+			}
+			
+			else {
+				    String usernames=prop.getProperty("lead_owner_name" );
+				    name=usernames.split(",");
+				    String newname=usernames+","+user; 
+				    FileOutputStream fos=new FileOutputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\leadOwner.properties");
+					prop.setProperty("lead_owner_name",newname);	
+				    prop.store(fos, "lead  has been added");	
+				    status=1;       
+			}
+			 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return status;
+	}
+
+
+	public static boolean productvalidate(String productid) throws Exception {
+		Properties prop=new Properties();
+		boolean status=false;
+		String prod[]=null;
+			FileInputStream fis=new FileInputStream("C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\product.properties");
+			prop.load(fis);
+			if(prop.isEmpty())
+			{
+				status=false;
+			}
+			else {
+			String productnames=prop.getProperty("productID" );
+			    prod=productnames.split(",");
+			    for(int i=0;i<prod.length;i++)
+			    {
+			    	if(prod[i].equalsIgnoreCase(productid)) 
+			    	{
+			    	status=true;
+			    	break;
+			    	}
+			    }
+			}
+			    return status;
+	}
+
+
+	public static int AddProduct(String productid, String productname, String status, float unitprice, int quantity,int gst) {
+		int validate=0;
+		String newsquantity;
+		Properties prop=new Properties();
+		try {
+			FileInputStream fis=new FileInputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\product.properties");
+			prop.load(fis);
+			if(prop.isEmpty()) 
+			{
+				FileOutputStream fos=new FileOutputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\product.properties");
+				prop.setProperty("productID",productid);
+				prop.setProperty("productname", productname);
+				prop.setProperty("status", status);
+				prop.setProperty("unitprice", String.valueOf(unitprice));
+				prop.setProperty("quantity", String.valueOf(quantity));
+				prop.setProperty("gst", String.valueOf(gst));
+					
+			prop.store(fos, " new product has been created");	
+			validate=1;
+			}
+			
+			else {
+				String productids=prop.getProperty("productID" );
+				String productnames=prop.getProperty("productname");
+				String statuss=prop.getProperty("status");
+				String unitprices=prop.getProperty("unitprice");
+				String quantities=prop.getProperty("quantity");
+				String gsts=prop.getProperty("gst");
+				  
+				String newid=productids+","+productid;
+				String newpname=productnames+","+productname;
+				String newststus=statuss+","+status;
+				String newunitprice=unitprices+","+String.valueOf(unitprice);
+				if(quantities.endsWith(",")) {
+				 newsquantity=quantities+String.valueOf(quantity);
+				}
+				else {
+					 newsquantity=quantities+","+String.valueOf(quantity);
+				}
+				String newgst=gsts+","+String.valueOf(gst);
+				
+				   FileOutputStream fos=new FileOutputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\product.properties");
+				    prop.setProperty("productID",newid);
+					prop.setProperty("productname", newpname);
+					prop.setProperty("status", newststus);
+					prop.setProperty("unitprice", newunitprice);
+					prop.setProperty("quantity", newsquantity);
+					prop.setProperty("gst", newgst);
+					prop.store(fos, " new product has been created");	
+				    validate=1;       
+			}
+			 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return validate;
+	}
+
+
+	public static void purchase(String product, int quantity) {
+		
+		String productname[] = null;
+		String totalquantity[] = null;
+		String ID[]=null;
+		String dat[]=null;
+		String newquantity="";
+		String pid="";
+		
+	Properties prop = new Properties();
+		try {
+			FileInputStream fis = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\product.properties");
+			prop.load(fis);
+
+			String pro = prop.getProperty("productname");
+			String qunty = prop.getProperty("quantity");
+			String id=prop.getProperty("productID");
+
+			productname = pro.split(",");
+			totalquantity = qunty.split(",");
+            ID=id.split(",");
+			for (int i = 0; i < productname.length; i++) {
+				if (productname[i].equals(product)) {
+					quantityavailable = Integer.valueOf(totalquantity[i]);
+					totalquantity[i]=String.valueOf(quantityavailable);
+					pid=ID[i];
+					break;
+				}
+			}
+			
+			
+			
+			Properties prop1 = new Properties();
+			if(quantityavailable<5) {
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+				   LocalDate now = LocalDate.now();
+				   String da=String.valueOf(now);
+				FileInputStream fps = new FileInputStream(
+						"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\purchase.properties");
+				prop1.load(fps);
+				
+				if(prop1.isEmpty()) {
+			FileOutputStream fos = new FileOutputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\purchase.properties");
+            prop1.setProperty("productname", product);
+			prop1.setProperty("quantity", String.valueOf(5));
+			prop1.setProperty("productID", pid);
+			prop1.setProperty("PurchaseDate", da);
+			prop1.store(fos, "purchase Order has been made");
+				
+				
+				for (int i = 0; i < productname.length; i++) {
+					if (productname[i].equals(product)) {
+						quantityavailable = Integer.valueOf(totalquantity[i]);
+						int purchase = quantityavailable +Integer.valueOf(5);
+						totalquantity[i]=String.valueOf(purchase);
+						break;
+					}
+				}
+				
+				for (int j = 0; j < totalquantity.length; j++) {
+					if(totalquantity.length==0) {
+						newquantity = totalquantity[0];
+					}
+					newquantity = newquantity + totalquantity[j]+"," ;
+				}
+
+				FileOutputStream output = new FileOutputStream(
+						"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\product.properties");
+
+				prop.setProperty("quantity", newquantity);
+
+				prop.store(output, "Quantity has been updated after purchaseOrder");
+				}
+				
+			
+			
+			else
+			{
+			String pro1=prop1.getProperty("productname");
+			String qun=prop1.getProperty("quantity");
+			String id1=prop1.getProperty("productID");
+			String dat1=prop1.getProperty("productID");
+			
+			String newprop=pro1+","+product;
+			String newqn=qun+","+String.valueOf(5);
+			String newid1=id1+","+pid;
+			String newdat=dat1+","+da;
+			
+			FileOutputStream fos = new FileOutputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\purchase.properties");
+            prop1.setProperty("productname", newprop);
+			prop1.setProperty("quantity", newqn);
+			prop1.setProperty("productID", newid1);
+			prop1.setProperty("PurchaseDate", newdat);
+			prop1.store(fos, "purchase Order has been made");
+			
+			
+			for (int i = 0; i < productname.length; i++) {
+				if (productname[i].equals(product)) {
+					quantityavailable = Integer.valueOf(totalquantity[i]);
+					int purchase = quantityavailable +5;
+					totalquantity[i]=String.valueOf(purchase);
+					break;
+				}
+			}
+			for (int j = 0; j < totalquantity.length; j++) {
+				
+				newquantity = newquantity + totalquantity[j]+"," ;
+			}
+			FileOutputStream output = new FileOutputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\product.properties");
+
+			prop.setProperty("quantity", newquantity);
+
+			prop.store(output, "Quantity has been updated after purchaseOrder");
+			
+			}
+			}
+			
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+
+}
