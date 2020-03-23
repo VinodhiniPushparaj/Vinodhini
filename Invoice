@@ -1,0 +1,449 @@
+package com.ADM.data;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Panel;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
+import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+
+public class Invoice extends JFrame {
+public static Invoice frame;
+public static JPanel panel_1;
+public static Panel panel;
+	public static JPanel contentPane;
+	public static JTextField textField;
+	public static JTextField textField_1;
+	public static JTextField textField_2;
+	public static JTextField textField_3;
+	public static JTextField textField_4;
+	public static JTextField textField_6;
+	public static JTextField textField_7;
+	public static JTextField textField_8;
+	public static JTextField textField_9;
+	public static JTextField textField_10;
+	public static JTextField textField_11;
+	public static JTextField textField_12;
+	public static JTextField textField_13;
+	public static JTable table;
+	public static JTextField textField_14;
+	public static JTextField textField_15;
+	public static JTextField textField_16;
+	private static JLabel lblNewLabel_20;
+	private JTable table_1;
+	private JTable table_2;
+	String salesno;
+	String invoiceno;
+	String name;
+	String email;
+	String mob;
+	String add1;
+	String add2;
+	
+	Invoiceprop ip=new Invoiceprop();
+
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					 frame = new Invoice();
+					frame.setVisible(true);
+					
+					Random ran=new Random();
+					int n=ran.nextInt(100)+1;
+					String number=String.valueOf(n);
+					textField_4 = new JTextField();
+					textField_4.setText(number);
+					textField_4.setEditable(false);
+					textField_4.setBounds(662, 65, 116, 22);
+					contentPane.add(textField_4);
+					textField_4.setColumns(10);
+					
+					 LocalDate ld= LocalDate.now();
+					 String currentdate=DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld).toString();
+					 lblNewLabel_20 = new JLabel("");
+					 lblNewLabel_20.setText(currentdate);
+						lblNewLabel_20.setFont(new Font("Times New Roman", Font.BOLD, 15));
+						lblNewLabel_20.setBounds(669, 30, 107, 16);
+						contentPane.add(lblNewLabel_20);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Invoice() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(0, 0, 1006, 884);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblCreateInvoice = new JLabel("Create Invoice");
+		lblCreateInvoice.setBounds(10, 11, 183, 44);
+		lblCreateInvoice.setFont(new Font("Tahoma", Font.BOLD, 24));
+		contentPane.add(lblCreateInvoice);
+		
+		 panel = new Panel();
+		panel.setBounds(8, 456, 921, 206);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_6 = new JLabel("Customer Address");
+		lblNewLabel_6.setBounds(96, 0, 115, 16);
+		panel.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("Shipping Address");
+		lblNewLabel_7.setBounds(627, 0, 107, 16);
+		panel.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_8 = new JLabel("Address Line 1");
+		lblNewLabel_8.setBounds(12, 38, 90, 16);
+		panel.add(lblNewLabel_8);
+		
+		textField_6 = new JTextField();
+		textField_6.setBounds(153, 35, 200, 22);
+		panel.add(textField_6);
+		textField_6.setColumns(10);
+		
+		JLabel lblNewLabel_9 = new JLabel("Address Line 2");
+		lblNewLabel_9.setBounds(12, 72, 90, 16);
+		panel.add(lblNewLabel_9);
+		
+		textField_7 = new JTextField();
+		textField_7.setBounds(153, 69, 200, 22);
+		panel.add(textField_7);
+		textField_7.setColumns(10);
+		
+		JLabel lblNewLabel_10 = new JLabel("State");
+		lblNewLabel_10.setBounds(12, 106, 56, 16);
+		panel.add(lblNewLabel_10);
+		
+		textField_8 = new JTextField();
+		textField_8.setBounds(153, 103, 200, 22);
+		panel.add(textField_8);
+		textField_8.setColumns(10);
+		
+		JLabel lblNewLabel_11 = new JLabel("Pincode");
+		lblNewLabel_11.setBounds(12, 135, 56, 16);
+		panel.add(lblNewLabel_11);
+		
+		textField_9 = new JTextField();
+		textField_9.setBounds(153, 132, 116, 22);
+		panel.add(textField_9);
+		textField_9.setColumns(10);
+		
+		JLabel lblNewLabel_12 = new JLabel("Address Line 1");
+		lblNewLabel_12.setBounds(537, 38, 90, 16);
+		panel.add(lblNewLabel_12);
+		
+		textField_10 = new JTextField();
+		textField_10.setBounds(658, 35, 237, 22);
+		panel.add(textField_10);
+		textField_10.setColumns(10);
+		
+		JLabel lblNewLabel_13 = new JLabel("Address Line 2");
+		lblNewLabel_13.setBounds(537, 72, 90, 16);
+		panel.add(lblNewLabel_13);
+		
+		textField_11 = new JTextField();
+		textField_11.setBounds(658, 69, 237, 22);
+		panel.add(textField_11);
+		textField_11.setColumns(10);
+		
+		JLabel lblNewLabel_14 = new JLabel("State");
+		lblNewLabel_14.setBounds(537, 106, 56, 16);
+		panel.add(lblNewLabel_14);
+		
+		textField_12 = new JTextField();
+		textField_12.setBounds(658, 103, 237, 22);
+		panel.add(textField_12);
+		textField_12.setColumns(10);
+		
+		JLabel lblNewLabel_15 = new JLabel("Pincode");
+		lblNewLabel_15.setBounds(537, 135, 56, 16);
+		panel.add(lblNewLabel_15);
+		
+		textField_13 = new JTextField();
+		textField_13.setBounds(658, 132, 116, 22);
+		panel.add(textField_13);
+		textField_13.setColumns(10);
+		
+		JButton btnNewButton_1 = new JButton(">");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String a1=textField_6.getText();
+				String a2=textField_7.getText();
+				String a3=textField_8.getText();
+				String a4=textField_9.getText();
+				
+				
+				textField_10.setText(a1);
+				textField_11.setText(a2);
+				textField_12.setText(a3);
+				textField_13.setText(a4);
+				
+				
+			}
+		});
+		
+		btnNewButton_1.setBounds(397, 81, 97, 25);
+		panel.add(btnNewButton_1);
+		
+		
+		 panel_1 = new JPanel();
+		panel_1.setBounds(10, 84, 919, 144);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Sales Order No");
+		lblNewLabel.setBounds(0, 16, 127, 16);
+		panel_1.add(lblNewLabel);
+		
+		
+		textField = new JTextField();
+		
+		  if(SalesOrder.btnGenerateInvoice != null) {
+		  textField.setText(SalesOrder.textField.getText());
+		  textField.setEditable(false); }
+		 
+			
+		
+		
+		
+		textField.setBounds(139, 13, 116, 22);
+		panel_1.add(textField);
+		textField.setColumns(10);
+		
+		
+		JButton btnNewButton = new JButton("Search");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int salesorderno=Integer.valueOf(textField.getText());
+				
+				try {
+					boolean status=Salesorderprop.validatesalesno(salesorderno);
+					if(status==false) {
+						textField.setBorder(new  LineBorder(Color.RED, 1)); 
+						JOptionPane.showMessageDialog(null, "No salesOrder available");
+					}
+					else {
+				try {
+					UserDB.getinvoice(salesorderno);
+					textField.setEditable(false);
+					textField_1.setEditable(false);
+					textField_2.setEditable(false);
+					textField_3.setEditable(false);
+					textField_14.setEditable(false);
+					textField_15.setEditable(false);
+					textField_16.setEditable(false);
+					try {
+						
+						ip.invoiceonevalue(salesorderno);
+				
+				int size=ip.snoarray.length;
+				
+				String data[][] = new String[size][6];
+				for(int i=0;i<ip.snoarray.length;i++) {
+
+					data[0][0] = ip.salenumber;
+					data[0][1] = ip.salesname;
+					data[0][2] = ip.product;
+					data[0][3] = ip.unitp;
+					data[0][4] = ip.quantity;
+					data[0][5]=ip.dis;
+				}
+
+				String columnNames[] = { "Salesnumber", "Salesname", "Product", "Unitprice", "Quantity","Discount" };
+				
+
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBounds(10, 239, 717, 123);
+				contentPane.add(scrollPane);
+				
+				table_2 = new JTable();
+				JTable jt = new JTable(data, columnNames);
+				scrollPane.setViewportView(jt);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+				}catch (Exception e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				}
+				
+			}
+		});
+		btnNewButton.setBounds(276, 12, 79, 24);
+		panel_1.add(btnNewButton);
+		
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(139, 47, 116, 22);
+		panel_1.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Customer Name");
+		lblNewLabel_1.setBounds(0, 50, 101, 16);
+		panel_1.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("E-Mail");
+		lblNewLabel_2.setBounds(0, 85, 85, 16);
+		panel_1.add(lblNewLabel_2);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(139, 82, 166, 22);
+		
+		panel_1.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblNewLabel_3 = new JLabel("Mobile No");
+		lblNewLabel_3.setBounds(0, 114, 85, 16);
+		panel_1.add(lblNewLabel_3);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(139, 117, 116, 22);
+		
+		panel_1.add(textField_3);
+		textField_3.setColumns(10);
+		
+		
+		
+		JLabel label = new JLabel("Invoice Date");
+		label.setBounds(545, 31, 107, 16);
+		contentPane.add(label);
+		
+		JLabel lblNewLabel_4 = new JLabel("Invoice No");
+		lblNewLabel_4.setBounds(545, 68, 107, 16);
+		contentPane.add(lblNewLabel_4);
+		
+		JButton btnNewButton_3 = new JButton("Save");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(textField.getText().isEmpty()) {
+					textField.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField_4.getText().isEmpty()) {
+					textField_4.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField_1.getText().isEmpty()) {
+					textField_1.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				
+				if(textField_2.getText().isEmpty()) {
+					textField_2.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField_3.getText().isEmpty()) {
+					textField_3.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField_9.getText().isEmpty()) {
+					textField_9.setBorder(new  LineBorder(Color.RED, 1)); 	
+				}
+				if(textField_13.getText().isEmpty()) {
+					textField_13.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				
+				else {
+				 salesno=textField.getText();
+				 invoiceno=String.valueOf(textField_4.getText());
+				 name=textField_1.getText();
+				 email=textField_2.getText();
+				 mob=textField_3.getText();
+				 add1=textField_9.getText();
+				 add2=textField_13.getText();
+				
+				int status=UserDB.Createinvoice(salesno,invoiceno,name,email,mob,add1,add2);
+				if(status>0) {
+					frame.dispose();
+					JOptionPane.showMessageDialog(null, "Invoice added");
+					UserHomePage.main(new String[] {});
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Invoice added");
+				}
+				}
+			}
+		});
+		btnNewButton_3.setBounds(156, 181, 97, 25);
+		panel.add(btnNewButton_3);
+	
+		
+		JButton btnNewButton_4 = new JButton("Cancel");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UserHomePage.main(new String[] {});
+				
+			}
+		});
+		btnNewButton_4.setBounds(493, 181, 97, 25);
+		panel.add(btnNewButton_4);
+		
+		JLabel lblNewLabel_17 = new JLabel("GST");
+		lblNewLabel_17.setBounds(743, 402, 56, 16);
+		contentPane.add(lblNewLabel_17);
+		
+		textField_15 = new JTextField();
+		textField_15.setBounds(809, 399, 116, 22);
+		contentPane.add(textField_15);
+		textField_15.setColumns(10);
+		
+		JLabel lblNewLabel_18 = new JLabel("Total");
+		lblNewLabel_18.setBounds(743, 429, 56, 16);
+		contentPane.add(lblNewLabel_18);
+		
+		textField_16 = new JTextField();
+		textField_16.setBounds(809, 426, 116, 22);
+		contentPane.add(textField_16);
+		textField_16.setColumns(10);
+		
+		
+		
+		JLabel lblNewLabel_16 = new JLabel("SubTotal");
+		lblNewLabel_16.setBounds(743, 374, 56, 16);
+		contentPane.add(lblNewLabel_16);
+		
+		textField_14 = new JTextField();
+		textField_14.setBounds(809, 371, 116, 22);
+		contentPane.add(textField_14);
+		textField_14.setColumns(10);
+		
+		
+		
+		
+		
+
+
+	}
+}
