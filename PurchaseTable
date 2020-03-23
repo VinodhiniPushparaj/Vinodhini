@@ -1,0 +1,79 @@
+package com.ADM.data;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+
+public class Purchasetable extends JFrame {
+
+	private JPanel contentPane;
+	private JTable table;
+	Purcahseprop purchase=new Purcahseprop();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Purchasetable frame = new Purchasetable();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Purchasetable() {
+		
+		setBounds(100, 100, 700, 451);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		try {
+			purchase.purchasevalue();
+			
+			int size=purchase.p.length;
+			
+			String data[][] = new String[size][4];
+			for (int i = 0; i < purchase.p.length; i++)
+
+			{
+				data[i][0] = purchase.id[i];
+				data[i][1] = purchase.p[i];
+				data[i][2] =purchase.q[i];
+				data[i][3] =purchase.dat[i];
+				
+			}
+
+			String columnNames[] = { "ProductID", "Product", "Quantity" ,"PurchaseDate"};
+		
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(10, 11, 664, 389);
+			contentPane.add(scrollPane);
+			
+			table = new JTable();
+			JTable jt = new JTable(data, columnNames);
+			scrollPane.setViewportView(jt);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+}
