@@ -1,0 +1,42 @@
+package com.ADM.data;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Properties;
+
+public class Campaignprop {
+	
+	static String camo[] = null;
+
+	static String name[] = null;
+	static String sdate[] = null;
+	static String edate[] = null;
+	static String ctype[] = null;
+	static String cstatus[] = null;
+	
+	public void campaignvalus() throws Exception {
+		Properties prop = new Properties();
+	
+			FileInputStream fis = new FileInputStream(
+					"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\campaign.properties");
+			prop.load(fis);
+			
+			String campaigno = prop.getProperty("campaignownername");
+			String campaignna = prop.getProperty("campaign_name");
+			String startdat = prop.getProperty("StartDate");
+			String enddat = prop.getProperty("EndDate");
+			String type = prop.getProperty("CampaignType");
+			String statusofcam = prop.getProperty("Status");
+			camo = campaigno.split(",");
+			name = campaignna.split(",");
+			sdate = startdat.split(",");
+			edate = enddat.split(",");
+			ctype = type.split(",");
+			cstatus = statusofcam.split(",");
+			
+			
+			
+			
+	}
+
+}
