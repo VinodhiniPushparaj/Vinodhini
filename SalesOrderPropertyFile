@@ -1,0 +1,146 @@
+package com.ADM.data;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Properties;
+
+public class Salesorderprop 
+{
+String salenumber="";
+String salesname="";
+String product="";
+String unitp="";
+String quantity="";
+String dis="";
+
+
+String snoarray[]=null;
+String salesnames[]=null;
+String products[]=null;
+String unitprices[]=null;
+String qun[]=null;
+String discont[]=null;
+	public void salesorder(int salesno) throws Exception 
+	{
+		Properties prop = new Properties();
+	
+	
+		
+			FileInputStream fis = new FileInputStream(
+					"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Sales.properties");
+			prop.load(fis);
+			
+			String sno = prop.getProperty("salesorderno");
+			String sdate = prop.getProperty("salesdate");
+			String qno = prop.getProperty("quoteno");
+			String scname = prop.getProperty("customername");
+			String smail = prop.getProperty("email");
+			String smobilen = prop.getProperty("mobile");
+			String productname = prop.getProperty("productname");
+			String qunitp = prop.getProperty("unitp");
+			String qgst = prop.getProperty("gst");
+			String qquantity = prop.getProperty("quantity");
+			String sdiscount = prop.getProperty("discount");
+			String subtotalsales = prop.getProperty("subtotal");
+			String sgsttotal = prop.getProperty("gsttotal");
+			String stotal = prop.getProperty("total");
+			
+			snoarray=sno.split(",");
+			salesnames=sdate.split(",");
+			products=productname.split(",");
+			unitprices=qunitp.split(",");
+			qun=qquantity.split(",");
+			discont=sdiscount.split(",");
+			
+			for(int i=0;i<snoarray.length;i++) 
+			{
+				if(snoarray[i].equals(String.valueOf(salesno)))
+				{
+					salenumber=snoarray[i];
+					salesname=salesnames[i];
+					product=products[i];
+					unitp=unitprices[i];
+					quantity=qun[i];
+					dis=discont[i];
+					break;
+				}
+				
+			}
+			
+			
+			
+	}
+	
+	
+	public void salesordervalue() throws Exception 
+	{
+		Properties prop = new Properties();
+	
+	
+		
+			FileInputStream fis = new FileInputStream(
+					"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Sales.properties");
+			prop.load(fis);
+			
+			String sno = prop.getProperty("salesorderno");
+			String sdate = prop.getProperty("salesdate");
+			String qno = prop.getProperty("quoteno");
+			String scname = prop.getProperty("customername");
+			String smail = prop.getProperty("email");
+			String smobilen = prop.getProperty("mobile");
+			String productname = prop.getProperty("productname");
+			String qunitp = prop.getProperty("unitp");
+			String qgst = prop.getProperty("gst");
+			String qquantity = prop.getProperty("quantity");
+			String sdiscount = prop.getProperty("discount");
+			String subtotalsales = prop.getProperty("subtotal");
+			String sgsttotal = prop.getProperty("gsttotal");
+			String stotal = prop.getProperty("total");
+			
+			snoarray=sno.split(",");
+			salesnames=sdate.split(",");
+			products=productname.split(",");
+			unitprices=qunitp.split(",");
+			qun=qquantity.split(",");
+			discont=sdiscount.split(",");
+			
+			
+			
+			
+	}
+
+
+	public static boolean validatesalesno(int salesno) throws Exception {
+	boolean status=false;
+	
+	String snoarray[]=null;
+	
+	Properties prop = new Properties();
+	
+	
+	
+	FileInputStream fis = new FileInputStream(
+			"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Sales.properties");
+	prop.load(fis);
+	
+	String sno = prop.getProperty("salesorderno");
+	
+	
+	snoarray=sno.split(",");
+	
+	
+	for(int i=0;i<snoarray.length;i++) 
+	{
+		if(snoarray[i].equals(String.valueOf(salesno)))
+		{
+			status=true;
+			break;
+		}
+		
+	}
+	
+	
+	return status;	
+	}
+	
+}
