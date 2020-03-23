@@ -1,0 +1,78 @@
+package com.ADM.data;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+
+public class Campaigntable extends JFrame {
+
+	private JPanel contentPane;
+	private JTable table;
+	Campaignprop cp=new Campaignprop();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Campaigntable frame = new Campaigntable();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Campaigntable() {
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 699, 450);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		try {
+			cp.campaignvalus();
+		
+		int size=cp.name.length;
+		
+		String data[][] = new String[size][6];
+		for (int i = 0; i < cp.name.length; i++)
+
+		{
+			data[i][0] = cp.camo[i];
+			data[i][1] = cp.name[i];
+			data[i][2] = cp.sdate[i];
+			data[i][3] = cp.edate[i];
+			data[i][4] = cp.ctype[i];
+			data[i][5] = cp.cstatus[i];
+		}
+
+		String columnNames[] = { "Campaignowner", "Campaign_name", "StartDate", "EndDate", "CampaignType", "Status", };
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 673, 389);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		JTable jt = new JTable(data, columnNames);
+		scrollPane.setViewportView(jt);
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}
