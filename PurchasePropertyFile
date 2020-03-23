@@ -1,0 +1,32 @@
+package com.ADM.data;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Properties;
+
+public class Purcahseprop {
+	
+	
+	String p[]=null;
+	String q[]=null;
+	String id[]=null;
+	String dat[]=null;
+
+	public void purchasevalue() throws Exception {
+		Properties prop1 = new Properties();
+		FileInputStream fps = new FileInputStream(
+				"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\purchase.properties");
+		prop1.load(fps);
+		
+		String pro1=prop1.getProperty("productname");
+		String qun=prop1.getProperty("quantity");
+		String id1=prop1.getProperty("productID");
+		String date1=prop1.getProperty("PurchaseDate");
+		
+		p=pro1.split(",");
+		q=qun.split(",");
+		id=id1.split(",");
+		dat=date1.split(",");
+		
+	}
+}
