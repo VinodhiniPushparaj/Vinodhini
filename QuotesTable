@@ -1,0 +1,86 @@
+package com.ADM.data;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.util.List;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
+
+import javax.swing.JTable;
+
+public class Quotestable extends JFrame {
+	public static Quotestable frame;
+	private JPanel contentPane;
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frame = new Quotestable();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Quotestable() {
+		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 700, 450);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		UserDB db = new UserDB();
+		try {
+			// UserDB.quotevalues();
+
+			db.quotevalues();
+			int size = db.qnoa.length;
+			System.out.println(size);
+
+			String data[][] = new String[size][8];
+			for (int i = 0; i < db.qnoa.length; i++)
+
+			{
+				data[i][0] = db.qnoa[i];
+				data[i][1] = db.qcnamea[i];
+				data[i][2] = db.qleada[i];
+				data[i][3] = db.qmaila[i];
+				data[i][4] = db.qmoba[i];
+				data[i][5] = db.qproda[i];
+				data[i][6] = db.qquana[i];
+				data[i][7] = db.qvalida[i];
+			}
+
+			String columnNames[] = { "Qno", "Quotename", "Leadname", "email", "Mobile", "Product", "quantity",
+					"ValidDate" };
+			// setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			setBounds(100, 100, 800, 400);
+
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(0, 11, 774, 350);
+			contentPane.add(scrollPane);
+			JTable jt = new JTable(data, columnNames);
+			scrollPane.setViewportView(jt);
+
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+}
