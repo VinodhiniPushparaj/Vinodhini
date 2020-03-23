@@ -1,0 +1,509 @@
+package com.ADM.data;
+
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
+import com.toedter.calendar.JDateChooser;
+
+public class CreateQuotes extends JFrame {
+    public static CreateQuotes frame;
+	private JPanel contentPane;
+	private JTextField textField_1;
+	public static JTextField textField_2;
+	public static JTextField textField_3;
+	public static JTextField textField_4;
+	public static JTextField textField_6;
+	public static JTextField textField;
+    public static JComboBox comboBox_1;
+    public static JComboBox comboBox;
+    public static JDateChooser dateChooser;
+    public static JDateChooser dateChooser_1;
+    public static JTextField textField_5;
+    public static Button button_3 ;
+    
+    String quotesdate;
+	String quotesname;
+	String leadname;
+	String email;
+	String mobile;
+	String product;
+	String validdate;
+	int quotesno;
+	float unitprice;
+	int gst;
+    int quantity;
+    
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frame = new CreateQuotes();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CreateQuotes() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 0, 1200, 788);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		
+		JButton btnHome = new JButton("HOME");
+		btnHome.setBounds(0, 0, 170, 40);
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				UserHomePage.main(new String[] {});
+			}
+		});
+		contentPane.setLayout(null);
+		btnHome.setFont(new Font("Constantia", Font.BOLD, 13));
+		contentPane.add(btnHome);
+		
+		
+		
+		JButton btnCampaingn = new JButton("CAMPAIGN");
+		btnCampaingn.setBounds(158, 0, 170, 40);
+		btnCampaingn.setFont(new Font("Constantia", Font.BOLD, 13));
+		btnCampaingn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				CreateCampaign.main(new String[] {});
+			}
+		});
+		contentPane.add(btnCampaingn);
+		
+		JButton btnNewButton_1 = new JButton("LEADS");
+		btnNewButton_1.setBounds(327, 0, 170, 40);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent  e) {
+				
+				frame.dispose();
+				CreateLeads.main(new String[] {});
+			}
+		});
+		btnNewButton_1.setFont(new Font("Constantia", Font.BOLD, 13));
+		contentPane.add(btnNewButton_1);
+		
+		JButton btnQuotes = new JButton("QUOTES");
+		btnQuotes.setBounds(495, 0, 170, 40);
+		btnQuotes.setFont(new Font("Constantia", Font.BOLD, 13));
+		btnQuotes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent  e) {
+				frame.dispose();
+				CreateQuotes.main(new String[] {});
+				
+			}
+		});
+		contentPane.add(btnQuotes);
+		
+		JButton btnNewButton_2 = new  JButton("SALESORDER");
+		btnNewButton_2.setBounds(482, 0, 122, 40);
+		btnNewButton_2.setFont(new Font("Constantia", Font.BOLD, 13));
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				SalesOrder.main(new String[] {});
+			}
+		});
+		contentPane.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("INVOICE");
+		btnNewButton_3.setBounds(662, 0, 170, 40);
+		btnNewButton_3.setFont(new Font("Constantia", Font.BOLD, 13));
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Invoice.main(new String[] {});
+			}
+		});
+		contentPane.add(btnNewButton_3);
+		
+		JButton btnProduct = new JButton("PRODUCT");
+		btnProduct.setBounds(830, 0, 170, 40);
+		btnProduct.setFont(new Font("Constantia", Font.BOLD, 13));
+		btnProduct.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Producttable.main(new String[] {});
+			}
+		});
+		contentPane.add(btnProduct);
+		
+		JButton btnPurchaseOrder = new JButton("LOGOUT");
+		btnPurchaseOrder.setBounds(998, 0, 174, 40);
+		btnPurchaseOrder.setFont(new Font("Constantia", Font.BOLD, 13));
+		btnPurchaseOrder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				UserHomePage.main(new String[] {});
+			}
+		});
+		contentPane.add(btnPurchaseOrder);
+		
+		JLabel lblCreateQuotes = new JLabel(" Create Quotes");
+		lblCreateQuotes.setBounds(0, 54, 192, 35);
+		lblCreateQuotes.setFont(new Font("Constantia", Font.BOLD, 20));
+		contentPane.add(lblCreateQuotes);
+		
+		JLabel lblNewLabel = new JLabel("Quote No");
+		lblNewLabel.setBounds(888, 55, 75, 35);
+		lblNewLabel.setFont(new Font("Constantia", Font.PLAIN, 15));
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Quote Date");
+		lblNewLabel_1.setBounds(888, 119, 75, 35);
+		lblNewLabel_1.setFont(new Font("Constantia", Font.PLAIN, 15));
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel(" Quote Name");
+		lblNewLabel_2.setBounds(91, 106, 101, 25);
+		lblNewLabel_2.setFont(new Font("Constantia", Font.PLAIN, 17));
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_9 = new JLabel("GST");
+		lblNewLabel_9.setFont(new Font("Constantia", Font.PLAIN, 17));
+		lblNewLabel_9.setBounds(91, 459, 46, 20);
+		contentPane.add(lblNewLabel_9);
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(236, 459, 86, 20);
+		contentPane.add(textField_5);
+		textField_5.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(236, 106, 248, 25);
+		contentPane.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel lblNewLabel_3 = new JLabel("Lead Name");
+		lblNewLabel_3.setBounds(91, 167, 122, 25);
+		lblNewLabel_3.setFont(new Font("Constantia", Font.PLAIN, 17));
+		contentPane.add(lblNewLabel_3);
+		
+		 dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("yyyy-MM-dd");
+		dateChooser.setBounds(1028, 123, 91, 20);
+		contentPane.add(dateChooser);
+		
+		textField = new JTextField();
+		textField.setBounds(236, 490, 239, 25);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		 dateChooser_1 = new JDateChooser();
+		dateChooser_1.setDateFormatString("yyyy-MM-dd");
+		dateChooser_1.setBounds(236, 550, 239, 25);
+		contentPane.add(dateChooser_1);
+		
+		comboBox = new JComboBox();
+		 comboBox.addItem("");
+		 try {
+			UserDB.Leadname();
+			
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		comboBox.setBounds(236, 167, 245, 25);
+		contentPane.add(comboBox);
+		
+		
+		
+		 comboBox_1 = new JComboBox();
+		 comboBox_1.setBounds(236, 354, 245, 23);
+		 comboBox_1.addItem("");
+		  try {
+			UserDB.getproduct();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+			contentPane.add(comboBox_1);
+		
+		
+		JLabel lblNewLabel_4 = new JLabel("Email I.d");
+		lblNewLabel_4.setBounds(91, 224, 75, 25);
+		lblNewLabel_4.setFont(new Font("Constantia", Font.PLAIN, 17));
+		contentPane.add(lblNewLabel_4);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(236, 224, 248, 25);
+		contentPane.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblMobileNo = new JLabel("Mobile No");
+		lblMobileNo.setBounds(91, 291, 101, 25);
+		lblMobileNo.setFont(new Font("Constantia", Font.PLAIN, 17));
+		contentPane.add(lblMobileNo);
+		
+		textField_3 = new JTextField();
+		
+		
+		
+		textField_3.setBounds(236, 291, 248, 25);
+		contentPane.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JLabel lblNewLabel_5 = new JLabel("Product");
+		lblNewLabel_5.setBounds(91, 353, 75, 25);
+		lblNewLabel_5.setFont(new Font("Constantia", Font.PLAIN, 17));
+		contentPane.add(lblNewLabel_5);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String leadname=comboBox.getSelectedItem().toString();
+				try {
+					UserDB.getmailId(leadname);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+			}
+		});
+		btnNewButton.setBounds(485, 167, 34, 25);
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_4 = new JButton("");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String prod=comboBox_1.getSelectedItem().toString();
+				try {
+					UserDB.getunitprice(prod);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+			}
+		});
+		btnNewButton_4.setBounds(484, 354, 35, 23);
+		contentPane.add(btnNewButton_4);
+		
+		JLabel lblNewLabel_6 = new  JLabel("Unit Price");
+		lblNewLabel_6.setBounds(91, 423, 101, 25);
+		lblNewLabel_6.setFont(new Font("Constantia", Font.PLAIN, 17));
+		contentPane.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("Quantity");
+		lblNewLabel_7.setBounds(91, 490, 101, 25);
+		lblNewLabel_7.setFont(new Font("Constantia", Font.PLAIN, 17));
+		contentPane.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_8 = new JLabel("Quote Valid Till");
+		lblNewLabel_8.setBounds(91, 555, 122, 20);
+		lblNewLabel_8.setFont(new Font("Constantia", Font.PLAIN, 17));
+		contentPane.add(lblNewLabel_8);
+		
+
+		textField_6 = new JTextField();
+		textField_6.setBounds(1028, 62, 86, 20);
+		contentPane.add(textField_6);
+		textField_6.setColumns(10);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(236, 423, 245, 25);
+		contentPane.add(textField_4);
+		textField_4.setColumns(10);
+		
+		Button button = new Button("Save");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				if(textField_1.getText().isEmpty()) {
+					textField_1.setBorder(new  LineBorder(Color.RED, 1));
+				}
+				if(textField_6.getText().isEmpty()) {
+					textField_6.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				
+				if(((JTextField) dateChooser.getDateEditor().getUiComponent()).getText().isEmpty()) {
+					dateChooser.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(((JTextField) dateChooser_1.getDateEditor().getUiComponent()).getText().isEmpty()) {
+					dateChooser_1.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(comboBox.getSelectedItem().toString().isEmpty()) {
+					comboBox.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField_2.getText().isEmpty()) {
+					textField_2.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField_3.getText().isEmpty()) {
+					textField_3.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(comboBox_1.getSelectedItem().toString().isEmpty()) {
+					comboBox_1.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField_4.getText().isEmpty()) {
+					textField_4.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField_5.getText().isEmpty()) {
+					textField_5.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField.getText().isEmpty()) {
+					textField.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				else {
+					
+
+					 quotesno=Integer.valueOf(textField_6.getText());
+					 quotesdate=((JTextField)dateChooser.getDateEditor().getUiComponent()).getText();
+					 quotesname=textField_1.getText();
+					 leadname=comboBox.getSelectedItem().toString();
+				     email=textField_2.getText();
+					 mobile=textField_3.getText();
+					 product=comboBox_1.getSelectedItem().toString();
+					 unitprice=Float.valueOf(textField_4.getText());
+					 gst=Integer.valueOf(textField_5.getText());
+				     quantity=Integer.valueOf(textField.getText());
+					 validdate=((JTextField)dateChooser_1.getDateEditor().getUiComponent()).getText();
+					
+				int status;
+				try {
+					status=UserDB.CreateQuote(quotesno, quotesdate, quotesname, leadname, email,mobile,product,unitprice,gst,quantity,validdate);
+					if(status>0) 
+					{
+						JOptionPane.showMessageDialog(null, "Quote has been created");
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "No Quote is created");
+					}
+					
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				}
+			}
+		});
+		button.setBounds(143, 636, 70, 35);
+		contentPane.add(button);
+		
+		Button button_1 = new Button("Cancel");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				UserHomePage.main(new String[] {});
+			}
+		});
+		button_1.setBounds(260, 636, 70, 35);
+		contentPane.add(button_1);
+		button_3 = new Button("Generate Sales order");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(textField_1.getText().isEmpty()) {
+					textField_1.setBorder(new  LineBorder(Color.RED, 1));
+				}
+				if(textField_6.getText().isEmpty()) {
+					textField_6.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				
+				if(((JTextField) dateChooser.getDateEditor().getUiComponent()).getText().isEmpty()) {
+					dateChooser.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(((JTextField) dateChooser_1.getDateEditor().getUiComponent()).getText().isEmpty()) {
+					dateChooser_1.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(comboBox.getSelectedItem().toString().isEmpty()) {
+					comboBox.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField_2.getText().isEmpty()) {
+					textField_2.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField_3.getText().isEmpty()) {
+					textField_3.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(comboBox_1.getSelectedItem().toString().isEmpty()) {
+					comboBox_1.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField_4.getText().isEmpty()) {
+					textField_4.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField_5.getText().isEmpty()) {
+					textField_5.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				if(textField.getText().isEmpty()) {
+					textField.setBorder(new  LineBorder(Color.RED, 1)); 
+				}
+				else {
+					
+
+					 quotesno=Integer.valueOf(textField_6.getText());
+					 quotesdate=((JTextField)dateChooser.getDateEditor().getUiComponent()).getText();
+					 quotesname=textField_1.getText();
+					 leadname=comboBox.getSelectedItem().toString();
+				     email=textField_2.getText();
+					 mobile=textField_3.getText();
+					 product=comboBox_1.getSelectedItem().toString();
+					 unitprice=Float.valueOf(textField_4.getText());
+					 gst=Integer.valueOf(textField_5.getText());
+				     quantity=Integer.valueOf(textField.getText());
+					 validdate=((JTextField)dateChooser_1.getDateEditor().getUiComponent()).getText();
+				
+				int status=0;
+				try {
+					status=UserDB.CreateQuote(quotesno, quotesdate, quotesname, leadname, email,mobile,product,unitprice,gst,quantity,validdate);
+					if(status>0) 
+					{
+						frame.dispose();
+						SalesOrder.main(new String[] {});
+						
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "No Quote is created");
+					}
+					
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				}
+				
+			}
+		});
+		button_3.setBounds(495, 636, 170, 35);
+		contentPane.add(button_3);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+	}
+}
