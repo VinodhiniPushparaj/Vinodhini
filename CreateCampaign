@@ -1,0 +1,114 @@
+package com.ADM.data;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Create_Campaign_Owner extends JFrame {
+    public static Create_Campaign_Owner frame;
+	private JPanel contentPane;
+	private JTextField textField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frame = new Create_Campaign_Owner();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Create_Campaign_Owner() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblCreateLeadOwner = new JLabel("Create Campaign Owner");
+		lblCreateLeadOwner.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblCreateLeadOwner.setBounds(5, 5, 419, 23);
+		contentPane.add(lblCreateLeadOwner);
+		
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String campaignownername=textField.getText();
+				if(campaignownername.isEmpty()) 
+				{
+					 textField.setBorder(new LineBorder(Color.RED, 1)); 
+					 
+					 
+				}
+				else {
+				int status;
+			    try {
+				    status=AdminDB.campaignowner(campaignownername);
+				    if(status>0)
+				    {
+				    	JOptionPane.showMessageDialog(null, "CampaignOwner name has been saved");
+				    	frame.dispose();
+				    	AdminHomePage.main(new String[] {});
+				    }
+				    else 
+				    {
+				    	JOptionPane.showMessageDialog(null, "CampaignOwner name is not saved");
+				    	
+				    }
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+			}
+		});
+		btnSave.setBounds(142, 140, 89, 23);
+		contentPane.add(btnSave);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+		    	AdminHomePage.main(new String[] {});
+			}
+		});
+		btnCancel.setBounds(268, 140, 89, 23);
+		contentPane.add(btnCancel);
+		
+		textField = new JTextField();
+		textField.setBounds(142, 74, 215, 29);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblName = new JLabel("Name :");
+		lblName.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblName.setBounds(60, 73, 58, 26);
+		contentPane.add(lblName);
+
+	}
+
+}
