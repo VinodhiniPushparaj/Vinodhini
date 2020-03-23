@@ -1,0 +1,442 @@
+package com.ADM.data;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import javax.swing.JLabel;
+import javax.swing.JTable;
+
+public class UserHomePage extends JFrame {
+	public static UserHomePage frame;
+	private JPanel contentPane;
+	private JTable table;
+	private JTable table_1;
+	private JTable table_2;
+	private JTable table_3;
+	private JTable table_4;
+	private JTable table_5;
+	UserDB db = new UserDB();
+	Campaignprop cp=new Campaignprop();
+	Leadsprop lp=new Leadsprop();
+	Salesorderprop sp=new Salesorderprop();
+	Productprop pp=new Productprop();
+	Invoiceprop ip=new Invoiceprop();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frame = new UserHomePage();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public UserHomePage() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(10, 0, 1100, 1200);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JButton btnHome = new JButton("HOME");
+		btnHome.setBounds(0, 33, 122, 25);
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		contentPane.setLayout(null);
+		btnHome.setFont(new Font("Constantia", Font.BOLD, 13));
+		contentPane.add(btnHome);
+
+		JButton btnCampaingn = new JButton("CAMPAIGN");
+		btnCampaingn.setBounds(120, 33, 122, 25);
+		btnCampaingn.setFont(new Font("Constantia", Font.BOLD, 13));
+		btnCampaingn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				CreateCampaign.main(new String[] {});
+			}
+		});
+		contentPane.add(btnCampaingn);
+
+		JButton btnNewButton_1 = new JButton("LEADS");
+		btnNewButton_1.setBounds(239, 33, 125, 25);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				CreateLeads.main(new String[] {});
+				
+			}
+		});
+		btnNewButton_1.setFont(new Font("Constantia", Font.BOLD, 13));
+		contentPane.add(btnNewButton_1);
+
+		JButton btnQuotes = new JButton("QUOTES");
+		btnQuotes.setBounds(362, 33, 122, 25);
+		btnQuotes.setFont(new Font("Constantia", Font.BOLD, 13));
+		btnQuotes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				CreateQuotes.main(new String[] {});
+			}
+		});
+		contentPane.add(btnQuotes);
+
+		JButton btnNewButton_2 = new JButton("SALESORDER");
+		btnNewButton_2.setBounds(482, 33, 122, 25);
+		btnNewButton_2.setFont(new Font("Constantia", Font.BOLD, 13));
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				SalesOrder.main(new String[] {});
+			}
+		});
+		contentPane.add(btnNewButton_2);
+
+		JButton btnNewButton_3 = new JButton("INVOICE");
+		btnNewButton_3.setBounds(602, 33, 122, 25);
+		btnNewButton_3.setFont(new Font("Constantia", Font.BOLD, 13));
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Invoice.main(new String[] {});
+			}
+		});
+		contentPane.add(btnNewButton_3);
+
+		JButton btnProduct = new JButton("PRODUCT");
+		btnProduct.setBounds(721, 33, 122, 25);
+		btnProduct.setFont(new Font("Constantia", Font.BOLD, 13));
+		btnProduct.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Producttable.main(new String[] {});
+			}
+		});
+		contentPane.add(btnProduct);
+
+		JButton btnLogOut = new JButton("LOGOUT");
+		btnLogOut.setBounds(952, 33, 122, 25);
+		btnLogOut.setFont(new Font("Constantia", Font.BOLD, 13));
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				User_SignIn.main(new String[] {});
+				
+			}
+		});
+		contentPane.add(btnLogOut);
+
+		table = new JTable();
+		try {
+			cp.campaignvalus();
+		
+		int size=cp.name.length;
+		
+		String data[][] = new String[size][6];
+		for (int i = 0; i < cp.name.length; i++)
+
+		{
+			data[i][0] = cp.camo[i];
+			data[i][1] = cp.name[i];
+			data[i][2] = cp.sdate[i];
+			data[i][3] = cp.edate[i];
+			data[i][4] = cp.ctype[i];
+			data[i][5] = cp.cstatus[i];
+		}
+
+		String columnNames[] = { "Campaignowner", "Campaign_name", "StartDate", "EndDate", "CampaignType", "Status", };
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 133, 269, 172);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		JTable jt = new JTable(data, columnNames);
+		jt.setEnabled(false);
+		scrollPane.setViewportView(jt);
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+			table.setBounds(10, 133, 269, 172);
+			contentPane.add(table);
+		
+
+		table_1 = new JTable();
+		
+
+		try {
+			lp.leadvalue();
+		
+	
+	int size=lp.lname.length;
+	
+	String data[][] = new String[size][5];
+	for (int i = 0; i < lp.lname.length; i++)
+
+	{
+		data[i][0] = lp.lowner[i];
+		data[i][1] = lp.lname[i];
+		data[i][2] = lp.lmob[i];
+		data[i][3] = lp.lmail[i];
+		data[i][4] = lp.lsource[i];
+	}
+
+	String columnNames[] = { "leadownername", "lead_name", "mobile", "mail", "leadsource" };
+
+	JScrollPane scrollPane = new JScrollPane();
+	scrollPane.setBounds(289, 133, 253, 172);
+	contentPane.add(scrollPane);
+	
+	table = new JTable();
+	JTable jt = new JTable(data, columnNames);
+	jt.setEnabled(false);
+	scrollPane.setViewportView(jt);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		table_1.setBounds(289, 133, 253, 172);
+		contentPane.add(table_1);
+
+		table_2 = new JTable();
+
+		try {
+
+			db.quotevalues();
+			int size = db.qnoa.length;
+
+			String data[][] = new String[size][8];
+			for (int i = 0; i < db.qnoa.length; i++)
+
+			{
+				data[i][0] = db.qnoa[i];
+				data[i][1] = db.qcnamea[i];
+				data[i][2] = db.qleada[i];
+				data[i][3] = db.qmaila[i];
+				data[i][4] = db.qmoba[i];
+				data[i][5] = db.qproda[i];
+				data[i][6] = db.qquana[i];
+				data[i][7] = db.qvalida[i];
+			}
+
+			String columnNames[] = { "Qno", "Quotename", "Leadname", "email", "Mobile", "Product", "quantity",
+					"ValidDate" };
+
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(552, 133, 293, 172);
+			contentPane.add(scrollPane);
+			JTable jt = new JTable(data, columnNames);
+			jt.setEnabled(false);
+			scrollPane.setViewportView(jt);
+
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		table_2.setBounds(552, 133, 293, 172);
+		contentPane.add(table_2);
+
+		JButton btnNewButton = new JButton("Products");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Producttable.main(new String[] {});
+			}
+		});
+		btnNewButton.setFont(new Font("Constantia", Font.BOLD, 11));
+		btnNewButton.setBounds(657, 337, 89, 23);
+		contentPane.add(btnNewButton);
+
+		JButton btnNewButton_4 = new JButton("View Salesorder");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Salesordertable.main(new String[] {});	
+			}
+		});
+		btnNewButton_4.setFont(new Font("Constantia", Font.BOLD, 11));
+		btnNewButton_4.setBounds(90, 337, 122, 23);
+		contentPane.add(btnNewButton_4);
+
+		JButton btnNewButton_5 = new JButton("View Invoice");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Invoicetable.main(new String[] {});
+				
+			}
+		});
+		btnNewButton_5.setFont(new Font("Constantia", Font.BOLD, 11));
+		btnNewButton_5.setBounds(351, 337, 111, 23);
+		contentPane.add(btnNewButton_5);
+
+		JButton btnNewButton_6 = new JButton("View Campaign");
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Campaigntable.main(new String[] {});
+			}
+		});
+		btnNewButton_6.setFont(new Font("Constantia", Font.BOLD, 11));
+		btnNewButton_6.setBounds(90, 88, 122, 23);
+		contentPane.add(btnNewButton_6);
+
+		JButton btnNewButton_7 = new JButton("View Leads");
+		btnNewButton_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Leadstable.main(new String[] {});
+			}
+		});
+		btnNewButton_7.setFont(new Font("Constantia", Font.BOLD, 11));
+		btnNewButton_7.setBounds(362, 88, 100, 23);
+		contentPane.add(btnNewButton_7);
+
+		JButton btnNewButton_8 = new JButton("View Quotes");
+		btnNewButton_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Quotestable.main(new String[] {});
+
+			}
+		});
+		btnNewButton_8.setFont(new Font("Constantia", Font.BOLD, 11));
+		btnNewButton_8.setBounds(657, 88, 100, 23);
+		contentPane.add(btnNewButton_8);
+
+		table_3 = new JTable();
+		
+		try {
+			sp.salesordervalue();;
+			int size=sp.snoarray.length;
+			
+			String data[][] = new String[size][6];
+			for(int i=0;i<sp.snoarray.length;i++) {
+				data[i][0] = sp.snoarray[i];
+				data[i][1] = sp.salesnames[i];
+				data[i][2] = sp.products[i];
+				data[i][3] = sp.unitprices[i];
+				data[i][4] = sp.qun[i];
+				data[i][5]=sp.discont[i];
+			}
+
+			String columnNames[] = { "Salesnumber", "Salesname", "Product", "Unitprice", "Quantity","Discount" };
+			
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(10, 379, 269, 172);
+			contentPane.add(scrollPane);
+			table = new JTable();
+			JTable jt = new JTable(data, columnNames);
+			jt.setEnabled(false);
+			scrollPane.setViewportView(jt);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		table_3.setBounds(10, 379, 269, 172);
+		contentPane.add(table_3);
+
+		table_4 = new JTable();
+		
+		try {
+			ip.invoicevalue();
+			
+               int size=ip.snoin.length;
+			
+			String data[][] = new String[size][7];
+			for(int i=0;i<ip.snoin.length;i++) {
+				data[i][0] =ip.snoin[i];
+				data[i][1] =ip.inno[i];
+				data[i][2] =ip.cusnamea[i];
+				data[i][3] = ip.cusma[i];
+				data[i][4] =ip.cumobila [i];
+				data[i][5]= ip.add1 [i];
+				data[i][6]= ip.add2 [i];
+			}
+
+			String columnNames[] = { "Salesnumber", "Invoiceno", "customername", "mailID", "Mobilenumber","Address1","Address1"  };
+			
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(289, 379, 253, 172);
+			contentPane.add(scrollPane);
+			table = new JTable();
+			JTable jt = new JTable(data, columnNames);
+			jt.setEnabled(false);
+			scrollPane.setViewportView(jt);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		table_4.setBounds(289, 379, 253, 172);
+		contentPane.add(table_4);
+
+		
+		
+		table_5 = new JTable();
+		try {
+			pp.productvalue();
+		
+	
+	int size=pp.pname.length;
+	
+	String data[][] = new String[size][6];
+	for (int i = 0; i < pp.pname.length; i++)
+
+	{
+		data[i][0] = pp.pid[i];
+		data[i][1] = pp.pname[i];
+		data[i][2] = pp.status[i];
+		data[i][3] = pp.uprice[i];
+		data[i][4] = pp.quantity[i];
+		data[i][5]=pp.gsta[i];
+	}
+
+	String columnNames[] = { "ProductID", "Product Name", "Status", "Unitprice", "Quantity in Stock","GST %" };
+
+	JScrollPane scrollPane = new JScrollPane();
+	scrollPane.setBounds(552, 379, 293, 172);
+	contentPane.add(scrollPane);
+	
+	table = new JTable();
+	JTable jt = new JTable(data, columnNames);
+	jt.setEnabled(false);
+	scrollPane.setViewportView(jt);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		table_5.setBounds(552, 379, 293, 172);
+		contentPane.add(table_5);
+
+		JLabel lblNewLabel = new JLabel("USER HOMEPAGE");
+		lblNewLabel.setFont(new Font("Constantia", Font.BOLD, 20));
+		lblNewLabel.setBounds(10, 0, 183, 25);
+		contentPane.add(lblNewLabel);
+
+	}
+}
