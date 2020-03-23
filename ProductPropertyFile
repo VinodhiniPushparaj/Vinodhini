@@ -1,0 +1,39 @@
+package com.ADM.data;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Properties;
+
+public class Productprop 
+{
+	String pid[]=null;
+	String pname[]=null;
+	String status[]=null;
+	String uprice[]=null;
+	String quantity[]=null;
+	String gsta[]=null;
+
+	public void productvalue() throws Exception {
+		Properties prop=new Properties();
+		
+			FileInputStream fis=new FileInputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\product.properties");
+			prop.load(fis);
+	
+			String productids=prop.getProperty("productID" );
+			String productnames=prop.getProperty("productname");
+			String statuss=prop.getProperty("status");
+			String unitprices=prop.getProperty("unitprice");
+			String quantities=prop.getProperty("quantity");
+			String gsts=prop.getProperty("gst");
+			
+			pid=productids.split(",");
+			pname=productnames.split(",");
+			status=statuss.split(",");
+			uprice=unitprices.split(",");
+			quantity=quantities.split(",");
+			gsta=gsts.split(",");
+			
+			
+			
+	}
+}
