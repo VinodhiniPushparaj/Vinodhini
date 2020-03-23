@@ -1,0 +1,75 @@
+package com.ADM.data;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+
+public class Invoicetable extends JFrame {
+
+	private JPanel contentPane;
+	private JTable table;
+Invoiceprop ip=new Invoiceprop();
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Invoicetable frame = new Invoicetable();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Invoicetable() {
+		
+		setBounds(100, 100, 700, 450);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+	
+		try {
+			ip.invoicevalue();
+			
+               int size=ip.snoin.length;
+			
+			String data[][] = new String[size][7];
+			for(int i=0;i<ip.snoin.length;i++) {
+				data[i][0] =ip.snoin[i];
+				data[i][1] =ip.inno[i];
+				data[i][2] =ip.cusnamea[i];
+				data[i][3] = ip.cusma[i];
+				data[i][4] =ip.cumobila [i];
+				data[i][5]= ip.add1 [i];
+				data[i][6]= ip.add2 [i];
+			}
+
+			String columnNames[] = { "Salesnumber", "Invoiceno", "customername", "mailID", "Mobilenumber","Address1","Address1"  };
+			
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(10, 11, 664, 389);
+			contentPane.add(scrollPane);
+			table = new JTable();
+			JTable jt = new JTable(data, columnNames);
+			scrollPane.setViewportView(jt);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}
