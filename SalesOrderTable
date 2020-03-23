@@ -1,0 +1,74 @@
+package com.ADM.data;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+
+public class Salesordertable extends JFrame {
+
+	private JPanel contentPane;
+	private JTable table;
+	
+	Salesorderprop sp=new Salesorderprop();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Salesordertable frame = new Salesordertable();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Salesordertable() {
+		setBounds(100, 100, 700, 450);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		try {
+			sp.salesordervalue();;
+			int size=sp.snoarray.length;
+			
+			String data[][] = new String[size][6];
+			for(int i=0;i<sp.snoarray.length;i++) {
+				data[i][0] = sp.snoarray[i];
+				data[i][1] = sp.salesnames[i];
+				data[i][2] = sp.products[i];
+				data[i][3] = sp.unitprices[i];
+				data[i][4] = sp.qun[i];
+				data[i][5]=sp.discont[i];
+			}
+
+			String columnNames[] = { "Salesnumber", "Salesname", "Product", "Unitprice", "Quantity","Discount" };
+			
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(10, 11, 664, 389);
+			contentPane.add(scrollPane);
+			table = new JTable();
+			JTable jt = new JTable(data, columnNames);
+			scrollPane.setViewportView(jt);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	}
+
+}
