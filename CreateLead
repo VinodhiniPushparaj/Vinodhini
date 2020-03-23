@@ -1,0 +1,280 @@
+package com.ADM.data;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.JComboBox;
+
+public class CreateLeads extends JFrame {
+    public static CreateLeads frame;
+	private JPanel contentPane;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	public static JComboBox comboBox ;
+	public static JComboBox comboBox_1 ;
+	
+	String leadowner;	
+	String leadname;
+	String mobile;
+	String mail;
+	String leadsource;
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frame = new CreateLeads();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CreateLeads() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1063, 888);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(250, 240, 230));
+		contentPane.setForeground(SystemColor.controlText);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JLabel lblNewLabel = new JLabel("CUSTOMER RELATIONSHIP MANAGEMENT");
+		lblNewLabel.setFont(new Font("Constantia", Font.BOLD, 20));
+		lblNewLabel.setBounds(300, 25, 428, 26);
+		contentPane.add(lblNewLabel);
+
+		JButton btnNewButton = new JButton("HOME");
+		btnNewButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			frame.dispose();
+			UserHomePage.main(new String[] {});
+		}
+		});
+		btnNewButton.setBounds(13, 97, 122, 25);
+		contentPane.add(btnNewButton);
+
+		JButton btnNewButton_1 = new JButton("CAMPAIGN");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				CreateCampaign.main(new String[] {});
+			}
+		});
+		btnNewButton_1.setBounds(135, 97, 122, 25);
+		contentPane.add(btnNewButton_1);
+
+		JButton btnNewButton_2 = new JButton("LEADS");
+		btnNewButton_2.setBounds(257, 97, 122, 25);
+		contentPane.add(btnNewButton_2);
+
+		JButton btnNewButton_3 = new JButton("QUOTES");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				CreateQuotes.main(new String [] {});
+			}
+		});
+		btnNewButton_3.setBounds(378, 97, 122, 25);
+		contentPane.add(btnNewButton_3);
+
+		JButton btnNewButton_4 = new JButton("SALES ORDER");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				SalesOrder.main(new String[] {});
+			}
+		});
+		btnNewButton_4.setBounds(499, 97, 122, 25);
+		contentPane.add(btnNewButton_4);
+
+		JButton btnNewButton_5 = new JButton("INVOICE");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Invoice.main(new String[] {});
+			}
+		});
+		btnNewButton_5.setBounds(621, 97, 122, 25);
+		contentPane.add(btnNewButton_5);
+
+		JButton btnNewButton_6 = new JButton("PRODUCTS");
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Producttable.main(new String[] {});
+				
+			}
+		});
+		btnNewButton_6.setBounds(742, 97, 122, 25);
+		contentPane.add(btnNewButton_6);
+
+		JLabel lblCreateLead = new JLabel("Create Lead");
+		lblCreateLead.setFont(new Font("Constantia", Font.BOLD, 14));
+		lblCreateLead.setBounds(13, 156, 99, 14);
+		contentPane.add(lblCreateLead);
+
+		JLabel lblLeadOwner = new JLabel("Lead Owner");
+		lblLeadOwner.setFont(new Font("Constantia", Font.ITALIC, 13));
+		lblLeadOwner.setBounds(33, 201, 69, 14);
+		contentPane.add(lblLeadOwner);
+
+		JLabel lblLeadName = new JLabel("Lead Name");
+		lblLeadName.setFont(new Font("Constantia", Font.ITALIC, 13));
+		lblLeadName.setBounds(33, 252, 69, 14);
+		contentPane.add(lblLeadName);
+
+		JLabel lblMobile = new JLabel("Mobile");
+		lblMobile.setFont(new Font("Constantia", Font.ITALIC, 13));
+		lblMobile.setBounds(33, 310, 46, 14);
+		contentPane.add(lblMobile);
+
+		JLabel lblEmail = new JLabel("E-mail");
+		lblEmail.setFont(new Font("Constantia", Font.ITALIC, 13));
+		lblEmail.setBounds(33, 368, 46, 14);
+		contentPane.add(lblEmail);
+
+		JLabel lblLeadSource = new JLabel("Lead Source");
+		lblLeadSource.setFont(new Font("Constantia", Font.ITALIC, 13));
+		lblLeadSource.setBounds(33, 427, 69, 14);
+		contentPane.add(lblLeadSource);
+
+		textField_2 = new JTextField();
+		textField_2.setBounds(183, 246, 185, 26);
+		contentPane.add(textField_2);
+		textField_2.setColumns(10);
+
+		textField_3 = new JTextField();
+		textField_3.setBounds(183, 304, 185, 26);
+		contentPane.add(textField_3);
+		textField_3.setColumns(10);
+
+		textField_4 = new JTextField();
+		textField_4.setBounds(183, 362, 185, 26);
+		contentPane.add(textField_4);
+		textField_4.setColumns(10);
+
+
+		comboBox = new JComboBox();
+		comboBox.setBounds(183, 198, 185, 26);
+		comboBox.addItem("");
+		try {
+			UserDB.leadowner();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		contentPane.add(comboBox);
+		
+	    comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(183, 424, 185, 26);
+		comboBox_1.addItem("");
+		try {
+			UserDB.leadsource();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		contentPane.add(comboBox_1);
+		
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			 leadowner=comboBox.getSelectedItem().toString();	
+			 leadname=textField_2.getText();
+			 mobile=textField_3.getText();
+			 mail=textField_4.getText();
+			 leadsource=comboBox_1.getSelectedItem().toString();
+			 
+			 if(leadowner.isEmpty()) {
+				 comboBox.setBorder(new  LineBorder(Color.RED, 1)); 
+			 }
+			 if(leadname.isEmpty()) {
+				 textField_2.setBorder(new  LineBorder(Color.RED, 1)); 
+			 }
+			 if(mobile.isEmpty()) {
+				 textField_3.setBorder(new  LineBorder(Color.RED, 1)); 
+			 }
+			 if(mail.isEmpty()) {
+				 textField_4.setBorder(new  LineBorder(Color.RED, 1));  
+			 }
+			 if(leadsource.isEmpty()) {
+				 comboBox_1.setBorder(new  LineBorder(Color.RED, 1));  
+			 }
+			 else {
+			int status;
+			try 
+			{
+				status=UserDB.CreateLead(leadowner, leadname, mobile, mail, leadsource);
+				if(status>0) 
+				{
+					frame.dispose();
+					JOptionPane.showMessageDialog(null, "Lead details has been saved");
+					UserHomePage.main(new String[] {});
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Lead details is not saved");
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 }
+			}
+		});
+		btnSave.setBounds(183, 499, 89, 23);
+		contentPane.add(btnSave);
+
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				frame.dispose();
+				UserHomePage.main(new String[] {});
+			}
+		});
+		btnCancel.setBounds(303, 499, 89, 23);
+		contentPane.add(btnCancel);
+
+		JButton btnLogout = new JButton("Logout");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				User_SignIn.main(new String[] {});
+			}
+		});
+		btnLogout.setBounds(948, 45, 89, 23);
+		contentPane.add(btnLogout);
+
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(0, 255, 255));
+		panel.setBounds(0, 0, 1047, 86);
+		contentPane.add(panel);
+		
+	}
+}
