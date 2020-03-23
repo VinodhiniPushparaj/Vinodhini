@@ -1,0 +1,38 @@
+package com.ADM.data;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Properties;
+
+public class Leadsprop {
+	
+	static String lowner[]=null;
+	static String lname[]=null;
+	static String lmob[]=null;
+	static String lmail[]=null;
+	static String lsource[]=null;
+	
+public void leadvalue() throws Exception {
+	
+	Properties prop = new Properties();
+	
+		FileInputStream fis = new FileInputStream(
+				"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\lead.properties");
+		prop.load(fis);
+	
+	
+	String leadownernames = prop.getProperty("leadownername");
+	String leadnames = prop.getProperty("lead_name");
+	String mobilen = prop.getProperty("mobile");
+	String mailIds = prop.getProperty("mail");
+	String leadsources = prop.getProperty("leadsource");
+	
+	lowner=leadownernames.split(",");
+	lname=leadnames.split(",");
+	lmob=mobilen.split(",");
+	lmail=mailIds.split(",");
+	lsource=leadsources.split(",");
+
+}
+
+}
