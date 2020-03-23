@@ -1,0 +1,455 @@
+package com.ADM.data;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.HashSet;
+import java.util.Properties;
+import java.util.Set;
+
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class SignupDB {
+	static Properties prop;
+	static String name[]=null;
+	static String passw[]=null;
+	static String emailn[]=null;
+	static String mobilen[]=null;
+	static String roles[]=null;
+	
+	public static int AdminSignUp(String username, String password, String email, String mobile, String role) throws Exception 
+	{
+		int status=0;
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/crm_team_4","root","0");
+		PreparedStatement ps= con.prepareStatement("insert into signup_admin(username,password,email,mobile,role) values(?,?,?,?,?)");
+		ps.setString(1, username);
+		ps.setString(2, password);
+		ps.setString(3, email);
+		ps.setString(4, mobile);
+		ps.setString(5, role);
+		
+		status =ps.executeUpdate();
+		
+		return status;
+	}
+ 
+	public static int UserSignUp(String username, String password, String email, String mobile, String role) throws Exception 
+	{
+		int status=0;
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/crm_team_4","root","0");
+		PreparedStatement ps= con.prepareStatement("insert into signup_user(username,password,email,mobile,role) values(?,?,?,?,?)");
+		ps.setString(1, username);
+		ps.setString(2, password);
+		ps.setString(3, email);
+		ps.setString(4, mobile);
+		ps.setString(5, role);
+		
+		status =ps.executeUpdate();
+		
+		return status;
+	}
+	
+	public static boolean AdminvalidateUsername(String username,String password) throws Exception 
+	{
+		boolean user=false;
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/crm_team_4","root","0");
+		PreparedStatement ps= con.prepareStatement("select * from signup_admin where username=? and password=?");
+		ps.setString(1, username);
+		ps.setString(2, password);
+		ResultSet rs=ps.executeQuery();
+		user=rs.next();
+		return user;
+	}
+	
+	public static boolean UservalidateUsername(String username,String password) throws Exception 
+	{
+		boolean user=false;
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/crm_team_4","root","0");
+		PreparedStatement ps= con.prepareStatement("select * from signup_user where username=? and password=?");
+		ps.setString(1, username);
+		ps.setString(2, password);
+		ResultSet rs=ps.executeQuery();
+		user=rs.next();
+		return user;
+	}
+	public static boolean signupvalidate(String username) 
+	{
+		boolean status=false;
+		try
+		{
+		File f=new File("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\SignUpexcel.xlsx");
+		FileInputStream fos=new FileInputStream(f);
+		XSSFWorkbook wb=new XSSFWorkbook(fos);
+		XSSFSheet sheet=wb.getSheetAt(0);
+	    int lastrow=sheet.getLastRowNum();
+	    for(int i=1;i<=lastrow;i++)
+	    {
+	    	if(sheet.getRow(i).getCell(0).getStringCellValue().trim().equals(username)) 
+	    	{
+	    		status=true;
+	    	}
+	    }
+	    wb.close();
+		}
+		catch(Exception e) {
+		e.printStackTrace();
+		}
+		
+		return status;
+	}
+	
+	
+	public static int signupAdminexcel(String username,String password,String email,String mobile,String role) 
+	{
+		int status=0;
+		try
+		{
+		File f=new File("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\SignUpexcel.xlsx");
+		FileInputStream fos=new FileInputStream(f);
+		XSSFWorkbook wb=new XSSFWorkbook(fos);
+		XSSFSheet sheet=wb.getSheetAt(0);
+	    int lastrow=sheet.getLastRowNum();
+	    sheet.createRow(lastrow+1).createCell(0).setCellValue(username);
+	    sheet.getRow(lastrow+1).createCell(1).setCellValue(password);
+	    sheet.getRow(lastrow+1).createCell(2).setCellValue(email);
+	    sheet.getRow(lastrow+1).createCell(3).setCellValue(mobile);
+	    sheet.getRow(lastrow+1).createCell(4).setCellValue(role);
+	    
+	    FileOutputStream op=new FileOutputStream(f);
+	    wb.write(op);
+	    wb.close();
+	    status=1;
+		}
+		catch(Exception e) {
+		e.printStackTrace();
+		}
+		return status;
+	}
+	
+	public static int signupuserexcel(String username,String password,String email,String mobile,String role) 
+	{
+		int status=0;
+		try
+		{
+		File f=new File("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\SignUpexcel.xlsx");
+		FileInputStream fos=new FileInputStream(f);
+		XSSFWorkbook wb=new XSSFWorkbook(fos);
+		XSSFSheet sheet=wb.getSheetAt(1);
+	    int lastrow=sheet.getLastRowNum();
+	    sheet.createRow(lastrow+1).createCell(0).setCellValue(username);
+	    sheet.getRow(lastrow+1).createCell(1).setCellValue(password);
+	    sheet.getRow(lastrow+1).createCell(2).setCellValue(email);
+	    sheet.getRow(lastrow+1).createCell(3).setCellValue(mobile);
+	    sheet.getRow(lastrow+1).createCell(4).setCellValue(role);
+	    FileOutputStream op=new FileOutputStream(f);
+	    wb.write(op);
+	    wb.close();
+	    status=1;
+		}
+		catch(Exception e) {
+		e.printStackTrace();
+		}
+		return status;
+	}
+
+	public static boolean AdminLoginExcel(String username, String password) {
+		boolean status=false;
+		try
+		{
+		File f=new File("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\SignUpexcel.xlsx");
+		FileInputStream fos=new FileInputStream(f);
+		XSSFWorkbook wb=new XSSFWorkbook(fos);
+		XSSFSheet sheet=wb.getSheetAt(0);
+	    int lastrow=sheet.getLastRowNum();
+	    for(int i=1;i<=lastrow;i++)
+	    {
+	    	String uname=sheet.getRow(i).getCell(0).getStringCellValue();
+	    	DataFormatter df=new DataFormatter();
+	    	String pass=df.formatCellValue(sheet.getRow(i).getCell(1));
+	    	if(uname.equals(username)&&(pass.equals(password)))
+	    	{
+	    		status=true;
+	    	}
+	    }
+	    wb.close();
+		}
+		catch(Exception e) {
+		e.printStackTrace();
+		}
+	
+		return status;
+	}
+
+	public static boolean userLoginExcel(String username, String password) {
+		boolean status=false;
+		try
+		{
+		File f=new File("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\SignUpexcel.xlsx");
+		FileInputStream fos=new FileInputStream(f);
+		XSSFWorkbook wb=new XSSFWorkbook(fos);
+		XSSFSheet sheet=wb.getSheetAt(1);
+	    int lastrow=sheet.getLastRowNum();
+	    for(int i=1;i<=lastrow;i++)
+	    {
+				String uname = sheet.getRow(i).getCell(0).getStringCellValue();
+				DataFormatter df = new DataFormatter();
+				String pass = df.formatCellValue(sheet.getRow(i).getCell(1));
+				if (uname.equals(username) && (pass.equals(password))) {
+					status = true;
+				}
+	    }
+	    wb.close();
+		}
+		catch(Exception e) {
+		e.printStackTrace();
+		}
+		
+		
+		
+		return status;
+	}
+	
+	public static  boolean  adminpropLoginvalidate(String user,String pass) 
+	{
+		boolean status=false;
+		Properties prop=new Properties();
+		try {
+		FileInputStream fos=new FileInputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\AdminSignup.properties");
+		prop.load(fos);
+		String usernames=prop.getProperty("username" );
+		String passwordnames=prop.getProperty("password");
+		    name=usernames.split(",");
+		    passw=passwordnames.split(",");
+		    
+		    for(int i=0;i<name.length;i++)
+		    {
+		    	if(name[i].equals(user)&&passw[i].equals(pass))
+		    	{
+		    		status=true;
+		    		break;
+		    	}
+		    }
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+	
+	public static boolean usernamepropvalidate(String user) throws Exception {
+		Properties prop=new Properties();
+		boolean status=false;
+			FileInputStream fis=new FileInputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\AdminSignup.properties");
+			prop.load(fis);
+			if(prop.isEmpty())
+			{
+				status=false;
+			}
+			else {
+			String usernames=prop.getProperty("username" );
+			String passwordnames=prop.getProperty("password");
+			String emailnames=prop.getProperty("email");
+			String mobilenames=prop.getProperty("mobile");
+			String rolenames=prop.getProperty("role");
+			    name=usernames.split(",");
+			    passw=passwordnames.split(",");
+			    emailn=emailnames.split(",");
+			    mobilen=mobilenames.split(",");
+			    roles=rolenames.split(",");
+			    for(int i=0;i<name.length;i++)
+			    {
+			    	if(name[i].equalsIgnoreCase(user)) 
+			    	{
+			    	status=true;
+			    	break;
+			    	}
+			    }
+			}
+			    return status;
+			
+	}
+	
+	public static boolean usernamesalespropvalidate(String user) throws Exception {
+		Properties prop=new Properties();
+		boolean status=false;
+			FileInputStream fis=new FileInputStream("C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\SalesManagerSignup.properties");
+			prop.load(fis);
+			if(prop.isEmpty())
+			{
+				status=false;
+			}
+			else {
+			String usernames=prop.getProperty("username" );
+			String passwordnames=prop.getProperty("password");
+			String emailnames=prop.getProperty("email");
+			String mobilenames=prop.getProperty("mobile");
+			String rolenames=prop.getProperty("role");
+			    name=usernames.split(",");
+			    passw=passwordnames.split(",");
+			    emailn=emailnames.split(",");
+			    mobilen=mobilenames.split(",");
+			    roles=rolenames.split(",");
+			    for(int i=0;i<name.length;i++)
+			    {
+			    	if(name[i].equalsIgnoreCase(user)) 
+			    	{
+			    	status=true;
+			    	break;
+			    	}
+			    }
+			}
+			    return status;
+			
+	}
+	public static  int adminpropsignup(String user,String pass,String email,String mobile,String Role) 
+	{
+		int status=0;
+		Properties prop=new Properties();
+		try {
+			FileInputStream fis=new FileInputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\AdminSignup.properties");
+			prop.load(fis);
+			if(prop.isEmpty()) 
+			{
+				FileOutputStream fos=new FileOutputStream("C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\AdminSignup.properties");
+				prop.setProperty("username",user);
+				prop.setProperty("password", pass);
+				prop.setProperty("email", email);
+				prop.setProperty("mobile", mobile);
+				prop.setProperty("role", Role);
+			prop.store(fos, "Admin SignUP values has been added");	
+			status=1;
+			}
+			
+			else {
+				String usernames=prop.getProperty("username" );
+				String passwordnames=prop.getProperty("password");
+				String emailnames=prop.getProperty("email");
+				String mobilenames=prop.getProperty("mobile");
+				String rolenames=prop.getProperty("role");
+				    name=usernames.split(",");
+				    passw=passwordnames.split(",");
+				    emailn=emailnames.split(",");
+				    mobilen=mobilenames.split(",");
+				    roles=rolenames.split(",");
+				   String newname=usernames+","+user; 
+				   String newpass=passwordnames+","+pass;
+				   String newmail=emailnames+","+email;
+				   String newmobile=mobilenames+","+mobile;
+				   String newrole=rolenames+","+Role;
+				   FileOutputStream fos=new FileOutputStream("C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\AdminSignup.properties");
+					
+					prop.setProperty("username",newname);
+					prop.setProperty("password", newpass);
+					prop.setProperty("email", newmail);
+					prop.setProperty("mobile", newmobile);
+					prop.setProperty("role", newrole);
+				prop.store(fos, " Admin SignUP values has been added");	
+				status=1;   
+				    
+				    
+				    
+			}
+			 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return status;
+	}
+	
+	public static  int Salesmanagerpropsignup(String user,String pass,String email,String mobile,String Role) 
+	{
+		int status=0;
+		Properties prop=new Properties();
+		try {
+			FileInputStream fis=new FileInputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\SalesManagerSignup.properties");
+			prop.load(fis);
+			if(prop.isEmpty()) 
+			{
+				FileOutputStream fos=new FileOutputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\SalesManagerSignup.properties");
+				prop.setProperty("username",user);
+				prop.setProperty("password", pass);
+				prop.setProperty("email", email);
+				prop.setProperty("mobile", mobile);
+				prop.setProperty("role", Role);
+			prop.store(fos, " Sales manager SignUP values has been added");	
+			status=1;
+			}
+			
+			else {
+				String usernames=prop.getProperty("username" );
+				String passwordnames=prop.getProperty("password");
+				String emailnames=prop.getProperty("email");
+				String mobilenames=prop.getProperty("mobile");
+				String rolenames=prop.getProperty("role");
+				    name=usernames.split(",");
+				    passw=passwordnames.split(",");
+				    emailn=emailnames.split(",");
+				    mobilen=mobilenames.split(",");
+				    roles=rolenames.split(",");
+				   String newname=usernames+","+user; 
+				   String newpass=passwordnames+","+pass;
+				   String newmail=emailnames+","+email;
+				   String newmobile=mobilenames+","+mobile;
+				   String newrole=rolenames+","+Role;
+				   FileOutputStream fos=new FileOutputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\SalesManagerSignup.properties");
+					
+					prop.setProperty("username",newname);
+					prop.setProperty("password", newpass);
+					prop.setProperty("email", newmail);
+					prop.setProperty("mobile", newmobile);
+					prop.setProperty("role", newrole);
+				prop.store(fos, "Sales manager SignUP values has been added");	
+				status=1;   
+				    
+				    
+				    
+			}
+			 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return status;
+	}
+	
+	public static  boolean  salesmanagerpropLoginvalidate(String user,String pass) 
+	{
+		boolean status=false;
+		Properties prop=new Properties();
+		try {
+		FileInputStream fos=new FileInputStream("C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\SalesManagerSignup.properties");
+		prop.load(fos);
+		String usernames=prop.getProperty("username" );
+		String passwordnames=prop.getProperty("password");
+		String rolenames=prop.getProperty("role");
+		    name=usernames.split(",");
+		    passw=passwordnames.split(",");
+		    roles=rolenames.split(",");
+		    
+		    for(int i=0;i<name.length;i++)
+		    {
+		    	if(name[i].equals(user)&&passw[i].equals(pass))
+		    	{
+		    		status=true;
+		    		break;
+		    	}
+		    }
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return status;
+	}
+	
+}
+
+
