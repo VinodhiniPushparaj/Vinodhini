@@ -1,0 +1,1052 @@
+package com.ADM.data;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+
+import javax.swing.JComboBox;
+
+
+public class UserDB {
+	
+	static String qnoa[]=null;
+	static	String qdatea[]=null;
+	static	String qcnamea[]=null;
+	static	String qleada[]=null;
+	static	String qmaila[]=null;
+	static	String qmoba[]=null;
+	static	String qproda[]=null;
+	static	String qunita[]=null;
+	static	String qquana[]=null;
+	static	String qgsta[]=null;
+	static  String qvalida[]=null;
+    
+    
+	static Properties prop;
+	public static JComboBox comboBox;
+	static String camo[] = null;
+
+	static String name[] = null;
+	static String sdate[] = null;
+	static String edate[] = null;
+	static String ctype[] = null;
+	static String cstatus[] = null;
+
+	public static String[] Campaignowner() {
+		String campaignowner[] = null;
+		Properties prop = new Properties();
+		try {
+			FileInputStream fos = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\CampaignOwner.properties");
+			prop.load(fos);
+			if (prop.isEmpty()) {
+				comboBox.addItem("");
+			} else {
+				String usernames = prop.getProperty("campaign_owner_name");
+				campaignowner = usernames.split(",");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return campaignowner;
+	}
+
+	public static int CreateCampaign(String campaignownername, String campaignname, String startdate, String enddate,
+			String campaigntype, String status) {
+
+		int status1 = 0;
+		Properties prop = new Properties();
+		try {
+			FileInputStream fis = new FileInputStream(
+					"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\campaign.properties");
+			prop.load(fis);
+			if (prop.isEmpty()) {
+				FileOutputStream fos = new FileOutputStream(
+						"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\campaign.properties");
+				prop.setProperty("campaignownername", campaignownername);
+				prop.setProperty("campaign_name", campaignname);
+				prop.setProperty("StartDate", startdate);
+				prop.setProperty("EndDate", enddate);
+				prop.setProperty("CampaignType", campaigntype);
+				prop.setProperty("Status", status);
+				prop.store(fos, " new Campaign has been created");
+				status1 = 1;
+			}
+
+			else {
+				String campaigno = prop.getProperty("campaignownername");
+				String campaignna = prop.getProperty("campaign_name");
+				String startdat = prop.getProperty("StartDate");
+				String enddat = prop.getProperty("EndDate");
+				String type = prop.getProperty("CampaignType");
+				String statusofcam = prop.getProperty("Status");
+				camo = campaigno.split(",");
+				name = campaignna.split(",");
+				sdate = startdat.split(",");
+				edate = enddat.split(",");
+				ctype = type.split(",");
+				cstatus = statusofcam.split(",");
+				String newcampaignowner = campaigno + "," + campaignownername;
+				String newcampaign = campaignna + "," + campaignname;
+				String newsdate = startdat + "," + startdate;
+				String newedate = enddat + "," + enddate;
+				String newtype = type + "," + campaigntype;
+				String newstatus = statusofcam + "," + status;
+				FileOutputStream fos = new FileOutputStream(
+						"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\campaign.properties");
+				prop.setProperty("campaignownername", newcampaignowner);
+				prop.setProperty("campaign_name", newcampaign);
+				prop.setProperty("StartDate", newsdate);
+				prop.setProperty("EndDate", newedate);
+				prop.setProperty("CampaignType", newtype);
+				prop.setProperty("Status", newstatus);
+				prop.store(fos, " new Campaign has been created");
+				status1 = 1;
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return status1;
+	}
+
+	public static void leadowner() {
+		String leadowner[] = null;
+		Properties prop = new Properties();
+		try {
+			FileInputStream fos = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\leadOwner.properties");
+			prop.load(fos);
+			if (prop.isEmpty()) {
+				comboBox.addItem("");
+			} else {
+				String usernames = prop.getProperty("lead_owner_name");
+				leadowner = usernames.split(",");
+				for (int i = 0; i < leadowner.length; i++) {
+					CreateLeads.comboBox.addItem(leadowner[i]);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void leadsource() {
+		String leadsource[] = null;
+		Properties prop = new Properties();
+		try {
+			FileInputStream fos = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\campaign.properties");
+			prop.load(fos);
+			if (prop.isEmpty()) {
+				comboBox.addItem("");
+			} else {
+				String campignname = prop.getProperty("campaign_name");
+				leadsource = campignname.split(",");
+				for (int i = 0; i < leadsource.length; i++) {
+					CreateLeads.comboBox_1.addItem(leadsource[i]);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static int CreateLead(String leadowner, String leadname, String mobile, String mail, String leadsource) {
+		int status1 = 0;
+		Properties prop = new Properties();
+		try {
+			FileInputStream fis = new FileInputStream(
+					"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\lead.properties");
+			prop.load(fis);
+			if (prop.isEmpty()) {
+				FileOutputStream fos = new FileOutputStream(
+						"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\lead.properties");
+				prop.setProperty("leadownername", leadowner);
+				prop.setProperty("lead_name", leadname);
+				prop.setProperty("mobile", mobile);
+				prop.setProperty("mail", mail);
+				prop.setProperty("leadsource", leadsource);
+
+				prop.store(fos, " new lead has been created");
+				status1 = 1;
+			}
+
+			else {
+				String leadownernames = prop.getProperty("leadownername");
+				String leadnames = prop.getProperty("lead_name");
+				String mobilen = prop.getProperty("mobile");
+				String mailIds = prop.getProperty("mail");
+				String leadsources = prop.getProperty("leadsource");
+
+				String newlead = leadownernames + "," + leadowner;
+				String newlname = leadnames + "," + leadname;
+				String newmobiles = mobilen + "," + mobile;
+				String newmailids = mailIds + "," + mail;
+				String newsource = leadsources + "," + leadsource;
+				FileOutputStream fos = new FileOutputStream(
+						"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\lead.properties");
+				prop.setProperty("leadownername", newlead);
+				prop.setProperty("lead_name", newlname);
+				prop.setProperty("mobile", newmobiles);
+				prop.setProperty("mail", newmailids);
+				prop.setProperty("leadsource", newsource);
+				prop.store(fos, " new lead has been created");
+				status1 = 1;
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return status1;
+	}
+
+	public static void Leadname() {
+		String leadname[] = null;
+		Properties prop = new Properties();
+		try {
+			FileInputStream fos = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\lead.properties");
+			prop.load(fos);
+			if (prop.isEmpty()) {
+				comboBox.addItem("");
+			} else {
+				String usernames = prop.getProperty("lead_name");
+				leadname = usernames.split(",");
+				for (int i = 0; i < leadname.length; i++) {
+					CreateQuotes.comboBox.addItem(leadname[i]);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void getproduct() {
+		String productname[] = null;
+		Properties prop = new Properties();
+		try {
+			FileInputStream fos = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\product.properties");
+			prop.load(fos);
+			if (prop.isEmpty()) {
+				CreateQuotes.comboBox_1.addItem("");
+			} else {
+				String product = prop.getProperty("productname");
+				productname = product.split(",");
+				for (int i = 0; i < productname.length; i++) {
+					CreateQuotes.comboBox_1.addItem(productname[i]);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void getmailId(String leadname) {
+		String name[] = null;
+		String email[] = null;
+		String mobile[] = null;
+
+		Properties prop = new Properties();
+		try {
+			FileInputStream fos = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\lead.properties");
+			prop.load(fos);
+			String leadnames = prop.getProperty("lead_name");
+			String leademail = prop.getProperty("mail");
+			String leadmobile = prop.getProperty("mobile");
+			name = leadnames.split(",");
+			email = leademail.split(",");
+			mobile = leadmobile.split(",");
+
+			for (int i = 0; i < name.length; i++) {
+				if (name[i].equals(leadname)) {
+					CreateQuotes.textField_2.setText(email[i]);
+					CreateQuotes.textField_3.setText(mobile[i]);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void getunitprice(String prod) {
+		String pname[] = null;
+		String unitp[] = null;
+		String gstp[] = null;
+
+		Properties prop = new Properties();
+		try {
+			FileInputStream fos = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\product.properties");
+			prop.load(fos);
+			String product = prop.getProperty("productname");
+			String unit = prop.getProperty("unitprice");
+			String gsts = prop.getProperty("gst");
+
+			pname = product.split(",");
+			unitp = unit.split(",");
+			gstp = gsts.split(",");
+
+			for (int i = 0; i < pname.length; i++) {
+				if (pname[i].equals(prod)) {
+					CreateQuotes.textField_4.setText(unitp[i]);
+					CreateQuotes.textField_5.setText(gstp[i]);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static int CreateQuote(int quotesno, String quotesdate, String quotesname, String leadname, String email,
+			String mobile, String product, float unitprice, int gst, int quantity, String validdate) {
+
+		int status = 0;
+		String newqno;
+		String newqdate;
+		String newqname;
+		String newlname ;
+		String newmail;
+		String newmobile;
+		String newproduct ;
+		String newqunitp;
+		String newqqgst;
+		String newqquantity;
+		String newqvaliddate;
+		
+		
+		Properties prop = new Properties();
+		try {
+			FileInputStream fis = new FileInputStream(
+					"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Quote.properties");
+			prop.load(fis);
+			if (prop.isEmpty()) {
+				FileOutputStream fos = new FileOutputStream(
+						"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Quote.properties");
+				prop.setProperty("quoteno", String.valueOf(quotesno));
+				prop.setProperty("quotesdate", quotesdate);
+				prop.setProperty("quotename", quotesname);
+				prop.setProperty("leadname", leadname);
+				prop.setProperty("email", email);
+				prop.setProperty("mobile", mobile);
+				prop.setProperty("productname", product);
+				prop.setProperty("unitp", String.valueOf(unitprice));
+				prop.setProperty("gst", String.valueOf(gst));
+				prop.setProperty("quantity", String.valueOf(quantity));
+				prop.setProperty("validdate", validdate);
+
+				prop.store(fos, " new quote has been created");
+				status = 1;
+			}
+
+			else {
+				FileOutputStream fos = new FileOutputStream(
+						"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Quote.properties");
+				String qno = prop.getProperty("quoteno");
+				String qdate = prop.getProperty("quotesdate");
+				String qname = prop.getProperty("quotename");
+				String qleadname = prop.getProperty("leadname");
+				String mail = prop.getProperty("email");
+				String qmobilen = prop.getProperty("mobile");
+				String productname = prop.getProperty("productname");
+				String qunitp = prop.getProperty("unitp");
+				String qgst = prop.getProperty("gst");
+				String qquantity = prop.getProperty("quantity");
+				String qvaliddate = prop.getProperty("validdate");
+				
+				
+                if(qno.endsWith(",")) 
+                {
+                	 newqno = qno+ String.valueOf(quotesno);
+                }
+                else 
+                {
+				     newqno = qno + "," + String.valueOf(quotesno);
+                }
+                if(qdate.endsWith(",")) 
+                {
+                	 newqdate = qdate + quotesdate;
+                }
+                else 
+                {
+                	 newqdate = qdate + "," + quotesdate;
+                }
+                if(qname.endsWith(",")) 
+                {
+                	 newqname = qname  + quotesname;
+                }
+                else 
+                {
+                	 newqname = qname + "," + quotesname;
+                }
+                if(qleadname.endsWith(",")) 
+                {
+                	 newlname = qleadname + leadname;
+                }
+                else 
+                {
+                	 newlname = qleadname + "," + leadname;
+                }
+                if(mail.endsWith(",")) 
+                {
+                	 newmail = mail  + email;
+                }
+                else 
+                {
+                	 newmail = mail + "," + email;
+                }
+                if(qmobilen.endsWith(",")) 
+                {
+                	 newmobile = qmobilen + mobile;
+                }
+                else 
+                {
+                	 newmobile = qmobilen + "," + mobile;
+                }
+                if(productname.endsWith(",")) 
+                {
+                	 newproduct = productname  + product;
+                }
+                else 
+                {
+                	 newproduct = productname + "," + product;
+                }
+                if(qunitp.endsWith(",")) 
+                {
+                	 newqunitp = qunitp + String.valueOf(unitprice);
+                }
+                else 
+                {
+                	 newqunitp = qunitp + "," + String.valueOf(unitprice);
+                }
+                if(qgst.endsWith(",")) 
+                {
+                	 newqqgst = qgst + String.valueOf(gst);
+                }
+                else 
+                {
+                	 newqqgst = qgst + "," + String.valueOf(gst);
+                }
+                if(qquantity.endsWith(",")) 
+                {
+                	 newqquantity = qquantity + String.valueOf(quantity);
+                }
+                else 
+                {
+                	 newqquantity = qquantity + "," + String.valueOf(quantity);
+                }
+                if(qvaliddate.endsWith(",")) 
+                {
+                	 newqvaliddate = qvaliddate + validdate;
+                }
+                else 
+                {
+                	 newqvaliddate = qvaliddate + "," + validdate;
+                }
+				
+		
+				prop.setProperty("quoteno", newqno);
+				prop.setProperty("quotesdate", newqdate);
+				prop.setProperty("quotename", newqname);
+				prop.setProperty("leadname", newlname);
+				prop.setProperty("email", newmail);
+				prop.setProperty("mobile", newmobile);
+				prop.setProperty("productname", newproduct);
+				prop.setProperty("unitp", newqunitp);
+				prop.setProperty("gst", newqqgst);
+				prop.setProperty("quantity", newqquantity);
+				prop.setProperty("validdate", newqvaliddate);
+
+				prop.store(fos, " new quote has been created");
+				status = 1;
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return status;
+	}
+
+	public static void getproductinsales() {
+		String pname[] = null;
+
+		Properties prop = new Properties();
+		try {
+			FileInputStream fos = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\product.properties");
+			prop.load(fos);
+			String product = prop.getProperty("productname");
+
+			pname = product.split(",");
+			for (int i = 0; i < pname.length; i++) {
+				SalesOrder.comboBox.addItem(pname[i]);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void getquote() {
+		String qno[] = null;
+
+		Properties prop = new Properties();
+		try {
+			FileInputStream fos = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\Quote.properties");
+			prop.load(fos);
+			String product = prop.getProperty("quoteno");
+			SalesOrder.comboBox_1.addItem("");
+			qno = product.split(",");
+			for (int i = 0; i < qno.length; i++) {
+				SalesOrder.comboBox_1.addItem(qno[i]);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void getdetailsfromquotes(String quotes) {
+		String qno[] = null;
+		String mobile[] = null;
+		String email[] = null;
+		String quantity[] = null;
+		String product[] = null;
+		String gst[] = null;
+		String lname[] = null;
+		String up[] = null;
+		Properties prop = new Properties();
+		try {
+			FileInputStream fos = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\Quote.properties");
+			prop.load(fos);
+			String qn = prop.getProperty("quoteno");
+			String mo = prop.getProperty("mobile");
+			String em = prop.getProperty("email");
+			String qun = prop.getProperty("quantity");
+			String pro = prop.getProperty("productname");
+			String gstt = prop.getProperty("gst");
+			String ln = prop.getProperty("leadname");
+			String uprice = prop.getProperty("unitp");
+
+			qno = qn.split(",");
+			mobile = mo.split(",");
+			email = em.split(",");
+			quantity = qun.split(",");
+			product = pro.split(",");
+			gst = gstt.split(",");
+			lname = ln.split(",");
+			up = uprice.split(",");
+
+			for (int i = 0; i < qno.length; i++) {
+				if (qno[i].equals(quotes)) {
+					SalesOrder.textField_5.setText(lname[i]);
+					SalesOrder.textField_1.setText(email[i]);
+					SalesOrder.textField_4.setText(mobile[i]);
+					SalesOrder.comboBox.setSelectedItem(product[i]);
+					SalesOrder.textField_2.setText(up[i]);
+					SalesOrder.textField_9.setText(quantity[i]);
+					SalesOrder.textField_3.setText(gst[i]);
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void getunitpriceinsales(String pname) {
+
+		String product[] = null;
+		String gst[] = null;
+		String up[] = null;
+		Properties prop = new Properties();
+		try {
+			FileInputStream fos = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\product.properties");
+			prop.load(fos);
+
+			String pro = prop.getProperty("productname");
+			String gstt = prop.getProperty("gst");
+			String uprice = prop.getProperty("unitprice");
+
+			product = pro.split(",");
+			gst = gstt.split(",");
+			up = uprice.split(",");
+
+			for (int i = 0; i < product.length; i++) {
+				if (product[i].equals(pname)) {
+					SalesOrder.textField_2.setText(up[i]);
+					SalesOrder.textField_3.setText(gst[i]);
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static int Createsales(int salesorderno, String salesdate, int quoteno, String customername, String email,
+			String mobile, String product, float unitprice, int quantity, int discount, int gst, String subtotal,
+			String gsttotal, String total) {
+
+		int status = 0;
+		Properties prop = new Properties();
+		try {
+			FileInputStream fis = new FileInputStream(
+					"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Sales.properties");
+			prop.load(fis);
+			if (prop.isEmpty()) {
+				FileOutputStream fos = new FileOutputStream(
+						"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Sales.properties");
+				prop.setProperty("salesorderno", String.valueOf(salesorderno));
+				prop.setProperty("salesdate", salesdate);
+				prop.setProperty("quoteno", String.valueOf(quoteno));
+				prop.setProperty("customername", customername);
+				prop.setProperty("email", email);
+				prop.setProperty("mobile", mobile);
+				prop.setProperty("productname", product);
+				prop.setProperty("unitp", String.valueOf(unitprice));
+				prop.setProperty("gst", String.valueOf(gst));
+				prop.setProperty("quantity", String.valueOf(quantity));
+				prop.setProperty("discount", String.valueOf(discount));
+				prop.setProperty("subtotal", subtotal);
+				prop.setProperty("gsttotal", gsttotal);
+				prop.setProperty("total", total);
+
+				prop.store(fos, " new Salesorder has been created");
+				status = 1;
+			}
+
+			else {
+
+				String sno = prop.getProperty("salesorderno");
+				String sdate = prop.getProperty("salesdate");
+				String qno = prop.getProperty("quoteno");
+				String scname = prop.getProperty("customername");
+				String smail = prop.getProperty("email");
+				String smobilen = prop.getProperty("mobile");
+				String productname = prop.getProperty("productname");
+				String qunitp = prop.getProperty("unitp");
+				String qgst = prop.getProperty("gst");
+				String qquantity = prop.getProperty("quantity");
+				String sdiscount = prop.getProperty("discount");
+				String subtotalsales = prop.getProperty("subtotal");
+				String sgsttotal = prop.getProperty("gsttotal");
+				String stotal = prop.getProperty("total");
+
+				String newsno = sno + "," + String.valueOf(salesorderno);
+				String newsdate = sdate + "," + salesdate;
+				String newqno = qno + "," + String.valueOf(quoteno);
+				String newscusname = scname + "," + customername;
+				String newsmail = smail + "," + email;
+				String newsalesmobile = smobilen + "," + mobile;
+				String newsproduct = productname + "," + product;
+				String newsunitp = qunitp + "," + String.valueOf(unitprice);
+				String newsqgst = qgst + "," + String.valueOf(gst);
+				String newsquantity = qquantity + "," + String.valueOf(quantity);
+				String newsdiscount = sdiscount + "," + discount;
+				String newssubtotal = subtotalsales + "," + subtotal;
+				String newsgsttotal = sgsttotal + "," + gsttotal;
+				String newstotal = stotal + "," + total;
+
+				FileOutputStream fos = new FileOutputStream(
+						"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Sales.properties");
+				prop.setProperty("salesorderno", newsno);
+				prop.setProperty("salesdate", newsdate);
+				prop.setProperty("quoteno", newqno);
+				prop.setProperty("customername", newscusname);
+				prop.setProperty("email", newsmail);
+				prop.setProperty("mobile", newsalesmobile);
+				prop.setProperty("productname", newsproduct);
+				prop.setProperty("unitp", newsunitp);
+				prop.setProperty("gst", newsqgst);
+				prop.setProperty("quantity", newsquantity);
+				prop.setProperty("discount", newsdiscount);
+				prop.setProperty("subtotal", newssubtotal);
+				prop.setProperty("gsttotal", newsgsttotal);
+				prop.setProperty("total", newstotal);
+
+				prop.store(fos, " new Salesorder has been created");
+				status = 1;
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return status;
+	}
+
+	public static void updatequantity(String product, int quantity) {
+
+		String productname[] = null;
+		String totalquantity[] = null;
+		int quantityavailable = 0;
+		String newquantity = "";
+
+		Properties prop = new Properties();
+		try {
+			FileInputStream fis = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\product.properties");
+			prop.load(fis);
+
+			String pro = prop.getProperty("productname");
+			String qunty = prop.getProperty("quantity");
+
+			productname = pro.split(",");
+			totalquantity = qunty.split(",");
+
+			for (int i = 0; i < productname.length; i++) {
+				if (productname[i].equals(product)) {
+					quantityavailable = Integer.valueOf(totalquantity[i]);
+					quantityavailable = quantityavailable - quantity;
+					totalquantity[i] = String.valueOf(quantityavailable);
+					break;
+				}
+			}
+			for (int j = 0; j < totalquantity.length; j++) {
+				newquantity = newquantity+totalquantity[j]+",";
+				
+			}
+			FileOutputStream fos = new FileOutputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\product.properties");
+
+			prop.setProperty("quantity", newquantity);
+
+			prop.store(fos, "Quantity has been updated after SalesOrder");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void getinvoice(int salesorderno) {
+		
+		String salesno[] = null;
+		String smail[] = null;
+		String scname[] = null;
+		String smob[] = null;
+		String ssubt[] = null;
+		String sgst[] = null;
+		String stotals[] = null;
+		
+
+		Properties prop = new Properties();
+		try {
+			FileInputStream fis = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\Sales.properties");
+			prop.load(fis);
+
+			String salsno = prop.getProperty("salesorderno");
+			String  salsmail= prop.getProperty("email");
+			String salscname=prop.getProperty("customername");
+			String salesmobile=prop.getProperty("mobile");
+			String salessubt=prop.getProperty("subtotal");
+			String salesgst=prop.getProperty("gsttotal");
+			String salestotal=prop.getProperty("total");
+			
+			
+			salesno = salsno.split(",");
+			smail = salsmail.split(",");
+			scname = salscname.split(",");
+			smob = salesmobile.split(",");
+			ssubt = salessubt.split(",");
+			sgst = salesgst.split(",");
+			stotals = salestotal.split(",");
+			
+			
+			for (int i = 0; i < salesno.length; i++) {
+				if(salesno[i].equals(String.valueOf(salesorderno))) 
+				{
+			Invoice.textField_1.setText(scname[i]);
+			Invoice.textField_2.setText(smail[i]);
+			Invoice.textField_3.setText(smob[i]);
+			Invoice.textField_14.setText(ssubt[i]);
+			Invoice.textField_15.setText(sgst[i]);
+			Invoice.textField_16.setText(stotals[i]);
+				}	
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void Quotestable() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+		   LocalDate now = LocalDate.now();
+		   String da=String.valueOf(now);
+		System.out.println(now);
+		String qname[] = null;
+		String qno[] = null;
+		String qdate[]=null;
+		String mobile[] = null;
+		String email[] = null;
+		String quantity[] = null;
+		String product[] = null;
+		String gst[] = null;
+		String lname[] = null;
+		String up[] = null;
+		String validd[]=null;
+		
+		
+		String qnamen = "";
+		String qnon = "";
+		String qdaten="";
+		String mobile1n = "";
+		String email1n ="";
+		String quantity1n = "";
+		String product1n = "";
+		String gst1n = "";
+		String lname1n = "";
+		String up1n = "";
+		String validd1n="";
+		
+		
+		Properties prop = new Properties();
+		try {
+			FileInputStream fos = new FileInputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\Quote.properties");
+			prop.load(fos);
+			String qn = prop.getProperty("quoteno");
+			String qnames = prop.getProperty("quotename");
+			String qdates = prop.getProperty("quotesdate");
+			String mo = prop.getProperty("mobile");
+			String em = prop.getProperty("email");
+			String qun = prop.getProperty("quantity");
+			String pro = prop.getProperty("productname");
+			String gstt = prop.getProperty("gst");
+			String ln = prop.getProperty("leadname");
+			String uprice = prop.getProperty("unitp");
+			String qvaliddate = prop.getProperty("validdate");
+
+			
+			qname=qnames.split(",");
+			qno = qn.split(",");
+			qdate=qdates.split(",");
+			mobile = mo.split(",");
+			email = em.split(",");
+			quantity = qun.split(",");
+			product = pro.split(",");
+			gst = gstt.split(",");
+			lname = ln.split(",");
+			up = uprice.split(",");
+			validd=qvaliddate.split(",");
+			
+			
+			String qname1[] = new String[qname.length];
+			String qno1[] = new String[qname.length];
+			String qdate1[]=new String[qname.length];
+			String mobile1[] =new String[qname.length];
+			String email1[] =new String[qname.length];
+			String quantity1[] =new String[qname.length];
+			String product1[] = new String[qname.length];
+			String gst1[] =new String[qname.length];
+			String lname1[] = new String[qname.length];
+			String up1[] = new String[qname.length];
+			String validd1[]=new String[qname.length];
+			
+
+			for (int i = 0, k=0; i < qname.length; i++) {
+				if (validd[i].equals(da))
+				{
+					continue;
+				}
+				else
+				{
+					 qname1[k] = qname[i];
+					 qno1[k]=qno[i];
+					 qdate1[k]=qdate[i];
+					 mobile1[k] =mobile[i] ;
+					 email1[k] = email[i];
+					 quantity1[k] =quantity[i] ;
+			    	 product1[k] =product[i];
+				     gst1[k] =gst[i] ;
+					 lname1[k] =lname[i];
+					 up1[k] =up[i];
+					 validd1[k]=validd[i];
+					
+				}
+			}
+			
+			for(int j=0;j<validd.length;j++)
+			{
+				qnamen=qnamen+qname1[j]+",";
+				qnon=qnon+qno1[j]+",";
+				qdaten=qdaten+qdate1[j]+",";
+				mobile1n=mobile1n+mobile1[j]+",";
+				email1n=email1n+email1[j]+",";
+				quantity1n=quantity1n+quantity1[j]+",";
+				product1n=product1n+product1[j]+",";
+				gst1n=gst1n+gst1[j]+",";
+				lname1n=lname1n+lname1[j]+",";
+				up1n=up1n+up1[j]+",";
+				validd1n=validd1n+validd1[j]+",";
+			
+			}
+			 
+			FileOutputStream output = new FileOutputStream(
+					"C:\\\\Users\\\\M. Prasanth\\\\Desktop\\\\bharath\\\\eclipse works\\\\CRM_new_excel\\\\src\\\\com\\\\ADM\\\\source\\\\Quote.properties");	
+			prop.setProperty("quoteno", qnon);
+			prop.setProperty("quotename", qnamen);
+			prop.setProperty("quotesdate", qdaten);
+			prop.setProperty("mobile", mobile1n);
+			prop.setProperty("email", email1n);
+			prop.setProperty("productname", product1n);
+			prop.setProperty("gst", gst1n);
+			prop.setProperty("leadname", lname1n);
+			prop.setProperty("unitp", up1n);
+			prop.setProperty("quantity", quantity1n);
+			prop.setProperty("validdate", validd1n);
+			
+			prop.store(output, "Quotes rewritten");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
+		
+		
+	}
+	
+	
+	public static void quotevalues() throws Exception
+	
+	{
+		
+		//List<String> v=new ArrayList<String>();
+		Properties prop = new Properties();
+	
+			FileInputStream fis = new FileInputStream(
+					"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Quote.properties");
+			prop.load(fis);
+		
+		
+			String qno = prop.getProperty("quoteno");
+			String qdate = prop.getProperty("quotesdate");
+			String qname = prop.getProperty("quotename");
+			String qleadname = prop.getProperty("leadname");
+			String mail = prop.getProperty("email");
+			String qmobilen = prop.getProperty("mobile");
+			String productname = prop.getProperty("productname");
+			String qunitp = prop.getProperty("unitp");
+			String qgst = prop.getProperty("gst");
+			String qquantity = prop.getProperty("quantity");
+			String qvaliddate = prop.getProperty("validdate");
+		
+		    qnoa=qno.split(",");
+		    qdatea=qdate.split(",");
+		    qcnamea= qname.split(",");
+		    qleada=qleadname.split(",");
+		    qmaila=mail.split(",");
+		    qmoba=qmobilen.split(",");
+		    qproda=productname.split(",");
+		    qunita=qunitp.split(",");
+		    qgsta=qgst.split(",");
+		    qquana=qquantity.split(",");
+		    qvalida=qvaliddate.split(",");
+		    
+	
+		
+		
+		
+		
+	}
+	
+	public static int Createinvoice(String salesno, String invoiceno, String cname, String email, String mob, String add1, String add2){
+
+		int status = 0;
+		Properties prop = new Properties();
+		try {
+			FileInputStream fis = new FileInputStream(
+					"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Invoice.properties");
+			prop.load(fis);
+			if (prop.isEmpty()) {
+				FileOutputStream fos = new FileOutputStream(
+						"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Invoice.properties");
+				prop.setProperty("saleno",salesno);
+				prop.setProperty("invoiceno",invoiceno);
+				prop.setProperty("customername",cname);
+				prop.setProperty("email",email);
+				prop.setProperty("mobile",mob);
+				prop.setProperty("address1",add1);
+				prop.setProperty("address2",add2);
+				
+
+				prop.store(fos, " new Invoice has been created");
+				status = 1;
+			}
+
+			else {
+
+				String sno = prop.getProperty("saleno");
+				String indate = prop.getProperty("invoiceno");
+				String cusname = prop.getProperty("customername");
+				String cusmail = prop.getProperty("email");
+				String cusmob = prop.getProperty("mobile");
+				String cusadd1 = prop.getProperty("address1");
+				String cusadd2 = prop.getProperty("address2");
+				
+
+String nsno=sno+","+salesno;
+String newinno=indate+","+invoiceno;
+String newcname=cusname+","+cname;
+String newmail=cusmail+","+email;
+String newcmob=cusmob+","+mob;
+String newadd1=cusadd1+","+add1;
+String newadd2=cusadd2+","+add2;
+
+				FileOutputStream fos = new FileOutputStream(
+						"C:\\Users\\M. Prasanth\\Desktop\\bharath\\eclipse works\\CRM_new_excel\\src\\com\\ADM\\source\\Invoice.properties");
+				prop.setProperty("saleno",nsno);
+				prop.setProperty("invoiceno",newinno);
+				prop.setProperty("customername",newcname);
+				prop.setProperty("email",newmail);
+				prop.setProperty("mobile",newcmob);
+				prop.setProperty("address1",newadd1);
+				prop.setProperty("address2",newadd2);
+
+				prop.store(fos, " new Invoice has been created");
+				status = 1;
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return status;
+	}
+
+}
